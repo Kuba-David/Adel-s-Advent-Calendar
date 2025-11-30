@@ -40,6 +40,15 @@
         color: #f2e8cf;
       }
 
+      h3 {
+        font-family: "Quicksand", sans-serif;
+        font-weight: 700;
+        font-size: 1.3rem;
+        text-align: center;
+        margin: 32px 0 0 0;
+        color: #2b5233;
+      }
+
       p {
         font-family: "Quicksand", sans-serif;
         font-weight: 600; /* Normální tloušťka pro text */
@@ -126,7 +135,7 @@
           box-shadow: 0 0 0 0 rgb(188, 71, 73, 0.4);
         }
         70% {
-          box-shadow: 0 0 0 10px rgba(188, 71, 73, 0.2);
+          box-shadow: 0 0 0 10px rgba(188, 71, 73, 0);
         }
         100% {
           box-shadow: 0 0 0 0 rgba(188, 71, 73, 0);
@@ -187,7 +196,7 @@
         position: relative;
         padding-bottom: 56.25%; /* 16:9 ratio */
         height: 0;
-        margin-bottom: 15px;
+        margin: 40px 0 24px 0;
         border-radius: 10px;
         overflow: hidden;
         background: #000;
@@ -201,10 +210,78 @@
         height: 100%;
       }
 
-      p {
-        font-size: 1.1rem;
-        line-height: 1.5;
-        margin: 0;
+      /* --- HERNÍ STYLY --- */
+      .game-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 24px 0;
+      }
+
+      /* Piškvorky */
+      .tictactoe-board {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 4px;
+        background-color: #2b5233; /* Tmavé pozadí mřížky */
+        padding: 4px;
+        border-radius: 8px;
+      }
+
+      .ttt-cell {
+        width: 60px;
+        height: 60px;
+        background-color: white;
+        border-radius: 6px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 2rem;
+        font-weight: bold;
+        cursor: pointer;
+        font-family: "Mountains of Christmas", cursive; /* Ať to ladí */
+      }
+
+      /* Kámen Nůžky Papír */
+      .rps-buttons {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        margin-bottom: 16px;
+      }
+
+      .rps-btn {
+        font-size: 2rem;
+        padding: 10px;
+        background: white;
+        border: 2px solid #ddd;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: transform 0.1s;
+      }
+
+      .rps-btn:active {
+        transform: scale(0.9);
+      }
+
+      .game-result {
+        font-weight: bold;
+        font-size: 1.2rem;
+        line-height: 2;
+        text-align: center;
+        color: #bc4749;
+        min-height: 1.5em;
+      }
+
+      .reset-btn {
+        margin-top: 15px;
+        padding: 8px 16px;
+        background-color: #4a5568;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-family: "Quicksand", sans-serif;
       }
     </style>
   </head>
@@ -240,15 +317,15 @@
         },
         {
           day: 2,
-          type: "image",
-          src: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOG84OHRkN2hqbDc3cHg1NnJldXo5YnVvZ2hxZ3d1eWluMGV1NWxpaiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/RdzzVrtvfqnM4/giphy.gif",
+          type: "video",
+          src: "https://www.youtube.com/watch?v=CJkrxF6DiJs",
           text: 'Úterý je často prostě "ten den po pondělí", ale ty jsi nejlepšejší beruška na světě a tak ho určitě zvládneš s přehledem. A kdyby tě cokoli rozladilo, koukni na ty koťátka. 🤭',
         },
         {
           day: 3,
-          type: "image",
-          src: "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3N3B1a2RiaDN3eTBrdDZ2eWtuMWFlNXJpdXpvbm8yOHVsdXhjM2s1bSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/gYEasZbwnHbDa/giphy.gif",
-          text: "Středa, jsme v půlce pracovního týdne! Doufám, že ti tohle virtuální okénko zvedne náladu. Myslím na tebe pořád! 💖",
+          type: "game",
+          gameType: "tictactoe", // Klíčové slovo
+          text: "Dneska si o pusu (nebo pět 🤭) musíš zahrát! Když vyhraješ, máš ji u mě. Když prohraješ... tak taky. 😘",
         },
         {
           day: 4,
@@ -291,9 +368,9 @@
         },
         {
           day: 11,
-          type: "video",
-          src: "https://www.youtube.com/embed/S__rA8V5oew", // Tip: Dej sem třeba video "Cute cats waiting for owner" nebo něco vtipného
-          text: "Čtvrtek v Praze (pravděpodobně mrznu). 🥶 Doufám, že ty si užíváš ostrovního tepla. I když nás dělí pár tisíc kilometrů a kus oceánu, díky kvantovému provázání (nebo prostě lásce) jsem tam s tebou. Dej si za mě Pastel de Nata! 😘",
+          type: "game",
+          gameType: "rps", // Klíčové slovo
+          text: "Čtvrtek v Praze (pravděpodobně mrznu). 🥶 I když nás dělí pár tisíc kilometrů a kus oceánu, díky kvantovému provázání (nebo prostě moderním technologiím) si můžeme střihnout Kámen, Nůžky, Papír. Tak co, vyhraješ? ❤️😘",
         },
         {
           day: 12,
@@ -386,13 +463,12 @@
       const currentDay = today.getDate();
 
       // DEBUG MÓD (true = vše otevřeno)
-      const debugMode = false;
+      const debugMode = true;
 
       // 1. Vygenerujeme pole čísel 1-24
       let daysArray = Array.from({ length: 24 }, (_, i) => i + 1);
 
       // 2. Zamícháme je (Shuffle)
-      // Používáme seed? Ne, prostě random shuffle při každém načtení.
       daysArray.sort(() => Math.random() - 0.5);
 
       // 3. Vykreslení gridu
@@ -432,26 +508,64 @@
         calendarContainer.appendChild(dayEl);
       });
 
+      // Globální proměnné pro stav her (aby se resetovaly při otevření)
+      let tttBoard = ["", "", "", "", "", "", "", "", ""];
+      let gameActive = true;
+
       function openDay(item, element) {
         let contentHtml = "";
 
+        // --- Typ: OBRÁZEK ---
         if (item.type === "image") {
           contentHtml = `<img src="${item.src}" class="modal-img" alt="Den ${item.day}">`;
-        } else if (item.type === "video") {
+        }
+        // --- Typ: VIDEO ---
+        else if (item.type === "video") {
           contentHtml = `<div class="video-wrapper"><iframe src="${item.src}" frameborder="0" allowfullscreen></iframe></div>`;
         }
+        // --- Typ: HRA (Piškvorky) ---
+        else if (item.type === "game" && item.gameType === "tictactoe") {
+          contentHtml = `
+            <h3>Poraz mě v piškvorkách! ❌⭕</h3>
+            <div class="game-container">
+                <div class="tictactoe-board" id="ttt-board">
+                    </div>
+                <div class="game-result" id="ttt-result">Tvůj tah (X)</div>
+                <button class="reset-btn" onclick="initTicTacToe()">Zkusit znovu</button>
+            </div>
+        `;
+        }
+        // --- Typ: HRA (Kámen Nůžky Papír) ---
+        else if (item.type === "game" && item.gameType === "rps") {
+          contentHtml = `
+            <h3>Kámen, nůžky, papír! ✂️</h3>
+            <div class="game-container">
+                <div class="rps-buttons">
+                    <button class="rps-btn" onclick="playRPS('✊')">✊</button>
+                    <button class="rps-btn" onclick="playRPS('✋')">✋</button>
+                    <button class="rps-btn" onclick="playRPS('✌️')">✌️</button>
+                </div>
+                <div class="game-result" id="rps-result">Vyber si!</div>
+            </div>
+        `;
+        }
 
+        // Společný text pod obsahem
         contentHtml += `<p>${item.text}</p>`;
 
         modalBody.innerHTML = contentHtml;
         modal.style.display = "flex";
 
-        // Uložíme do LS
+        // Uložení stavu a stylu
         localStorage.setItem(`day-${item.day}`, "true");
-
-        // UI update
         element.classList.remove("today-active");
         element.classList.add("opened");
+
+        // --- INICIALIZACE HER PO VYKRESLENÍ HTML ---
+        if (item.type === "game") {
+          if (item.gameType === "tictactoe") initTicTacToe();
+          // RPS nepotřebuje init, má funkce přímo na tlačítkách
+        }
       }
 
       function closeModal() {
@@ -462,6 +576,113 @@
       window.onclick = function (event) {
         if (event.target == modal) closeModal();
       };
+
+      // --- LOGIKA PRO PIŠKVORKY (TIC TAC TOE) ---
+      function initTicTacToe() {
+        tttBoard = ["", "", "", "", "", "", "", "", ""];
+        gameActive = true;
+        const boardEl = document.getElementById("ttt-board");
+        const resultEl = document.getElementById("ttt-result");
+        resultEl.innerText = "Tvůj tah (X)";
+
+        boardEl.innerHTML = "";
+        tttBoard.forEach((cell, index) => {
+          const cellEl = document.createElement("div");
+          cellEl.classList.add("ttt-cell");
+          cellEl.onclick = () => makeMove(index);
+          boardEl.appendChild(cellEl);
+        });
+      }
+
+      function makeMove(index) {
+        if (!gameActive || tttBoard[index] !== "") return;
+
+        // Tah hráče (X)
+        tttBoard[index] = "X";
+        updateBoardUI();
+
+        if (checkWin("X")) {
+          endGame("Vyhrála jsi! 🎉");
+          return;
+        }
+        if (!tttBoard.includes("")) {
+          endGame("Remíza! 🤝");
+          return;
+        }
+
+        // Tah počítače (O) - jednoduchá AI (náhodný tah)
+        gameActive = false; // Zámek
+        setTimeout(() => {
+          let emptyIndices = tttBoard
+            .map((e, i) => (e === "" ? i : null))
+            .filter((e) => e !== null);
+          let randomMove =
+            emptyIndices[Math.floor(Math.random() * emptyIndices.length)];
+
+          if (randomMove !== undefined) {
+            tttBoard[randomMove] = "O";
+            updateBoardUI();
+
+            if (checkWin("O")) {
+              endGame("Kalendář vyhrál! 🤖");
+            } else if (!tttBoard.includes("")) {
+              endGame("Remíza! 🤝");
+            } else {
+              gameActive = true;
+            }
+          }
+        }, 600); // Malé zpoždění, ať to vypadá, že přemýšlí
+      }
+
+      function updateBoardUI() {
+        const cells = document.querySelectorAll(".ttt-cell");
+        tttBoard.forEach((val, i) => {
+          cells[i].innerText = val;
+          cells[i].style.color = val === "X" ? "#c53030" : "#2d3748";
+        });
+      }
+
+      function checkWin(player) {
+        const wins = [
+          [0, 1, 2],
+          [3, 4, 5],
+          [6, 7, 8], // Řádky
+          [0, 3, 6],
+          [1, 4, 7],
+          [2, 5, 8], // Sloupce
+          [0, 4, 8],
+          [2, 4, 6], // Diagonály
+        ];
+        return wins.some((combo) => combo.every((i) => tttBoard[i] === player));
+      }
+
+      function endGame(message) {
+        gameActive = false;
+        document.getElementById("ttt-result").innerText = message;
+      }
+
+      // --- LOGIKA PRO KÁMEN, NŮŽKY, PAPÍR ---
+      function playRPS(playerChoice) {
+        const choices = ["✊", "✋", "✌️"];
+        const aiChoice = choices[Math.floor(Math.random() * choices.length)];
+        const resultEl = document.getElementById("rps-result");
+
+        let result = "";
+
+        if (playerChoice === aiChoice) {
+          result = "Remíza! 🤝";
+        } else if (
+          (playerChoice === "✊" && aiChoice === "✌️") ||
+          (playerChoice === "✋" && aiChoice === "✊") ||
+          (playerChoice === "✌️" && aiChoice === "✋")
+        ) {
+          result = "Vyhrála jsi! 🎉";
+        } else {
+          result = "Já vyhrál! 🫣";
+        }
+
+        resultEl.innerHTML = `Ty: ${playerChoice} vs Já: ${aiChoice} <br> ${result}`;
+      }
     </script>
   </body>
 </html>
