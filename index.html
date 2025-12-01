@@ -143,7 +143,7 @@
 
       @keyframes pulse {
         0% {
-          box-shadow: 0 0 0 0 rgb(188, 71, 73, 0.7);
+          box-shadow: 0 0 0 0 rgb(188, 71, 73, 0.85);
         }
         70% {
           box-shadow: 0 0 0 10px rgba(188, 71, 73, 0);
@@ -363,14 +363,14 @@
       .progress-bar-wrap {
         width: 100%;
         height: 32px;
-        background-color: #cac1ac;
+        background-color: #bc4749;
         border-radius: 10px;
         overflow: hidden;
         margin-bottom: 10px;
       }
       .progress-bar-fill {
         height: 100%;
-        background-color: #bc4749; /* Červená pro lásku */
+        background-color: #cac1ac; 
         width: 0%;
         transition: width 0.1s linear;
       }
@@ -484,7 +484,7 @@
           day: 7,
           type: "game",
           gameType: "pexeso",
-          text: "Tohle pexeso je speciální 🤭 Najdi 6 věcí, které máš ráda! Zvládneš to? 😇❤️",
+          text: "Tohle pexeso je speciální 🤭 Najdi 6 věcí, které máš ráda! 😇❤️",
         },
         {
           day: 8,
@@ -523,7 +523,7 @@
           day: 14,
           type: "game",
           gameType: "clicker",
-          text: "Dnešní úkol je fyzicky náročný! 🫣 Ukaž mi, jak moc mě máš ráda, tím, že naplníš tenhle ukazatel lásky. 🤭❤️ Připrav si paleček... Start!",
+          text: "Máš tu ode mě připravenou zásobu pusinek. 😚 Stihneš si je všechny vybrat? 🤭❤️ Tak připravit paleček... pozór...",
         },
         {
           day: 15,
@@ -694,11 +694,11 @@
         // --- CLICKER ---
         else if (item.type === "game" && item.gameType === "clicker") {
           contentHtml = `
-            <h3>Naplň nádrž lásky!</h3>
+            <h3>Pusinky do zásoby!</h3>
             <h4>Klikej co nejrychleji!<br>Zbývající čas: <span id="clicker-time">10</span>s</h4>
             <div class="game-container clicker-container">
                 <div class="progress-bar-wrap"><div class="progress-bar-fill" id="clicker-progress"></div></div>
-                <div class="click-target" onclick="clickerClick()">💖</div>
+                <div class="click-target" onclick="clickerClick()">💋</div>
                 
                 <div class="game-result" id="clicker-status" style="min-height: 30px;">Připrav se...</div>
                 
@@ -934,7 +934,7 @@
 
       // --- COOKIE CLICKER LOGIKA ---
       let clicks = 0;
-      const clicksNeeded = 30;
+      const clicksNeeded = 50;
       let clickerTimeLeft = 10;
       let clickerTimer = null; // Důležité: Musí být definováno takto globálně
       let clickerActive = false;
@@ -1009,7 +1009,7 @@
         const statusEl = document.getElementById("clicker-status");
         if (statusEl) {
           if (win) {
-            statusEl.innerHTML = "Jsi úžasná! ❤️<br>Natankovala jsi nám<br>plnou nádrž lásky.";
+            statusEl.innerHTML = "Jsi úžasná! ❤️<br>Teď máš pusinky do zásoby. 🤭";
             statusEl.style.color = "#bc4749";
           } else {
             statusEl.innerHTML = "Čas vypršel! 🫣<br>Zkus to znovu.";
