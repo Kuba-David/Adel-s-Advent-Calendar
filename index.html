@@ -282,6 +282,7 @@
       }
       .game-info {
         font-weight: 700;
+        line-height: 2;
         margin-bottom: 16px;
         font-size: 1.2rem;
         text-align: center;
@@ -295,6 +296,12 @@
         text-align: center;
         color: #bc4749;
         min-height: 1.5em;
+      }
+
+      .choice {
+        font-size: 3rem;
+        line-height: 1; /* Aby emoji bylo hezky vycentrované */
+        margin-bottom: 16px;
       }
 
       .reset-btn {
@@ -370,7 +377,7 @@
       }
       .progress-bar-fill {
         height: 100%;
-        background-color: #cac1ac; 
+        background-color: #cac1ac;
         width: 0%;
         transition: width 0.1s linear;
       }
@@ -441,702 +448,710 @@
     </div>
 
     <script>
-      // --- TVOJE DATA (Zkopíruj sem ten finální list objektů 1-24) ---
-      const adventData = [
-        // ... sem vlož data ...
-        {
-          day: 1,
-          type: "image",
-          src: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOG84OHRkN2hqbDc3cHg1NnJldXo5YnVvZ2hxZ3d1eWluMGV1NWxpaiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/l29MVhX6iz7dS/giphy.gif",
-          text: "Lásko moje nejmilovanější,<br>vítej v digitální verzi naší tradice! Letos jsem musel vyměnit skleničky a krabičky za pixely, protože dodání zásilek na Madeiru je jako sázka do loterie. Ale láska (a zviřátka) se do jedniček a nul vejdou taky. 🤭<br>Tak krásný, náš vlastní, advent! Miluju Tě ❤️",
-        },
-        {
-          day: 2,
-          type: "image",
-          src: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExazR6YzFnZWdqejN0ajBlcHJjcm1lMjJuc2U3MmpxbDdoYzY2eGR4OCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/HXpzpXB5syQGQ/giphy.gif",
-          text: 'Úterý je často prostě "ten den po pondělí", ale ty jsi nejlepšejší beruška na světě a tak ho určitě zvládneš s přehledem. A kdyby tě cokoli rozladilo, posílám koťátka na zlepšení nálady. 🤭 Jo... a přijď si pro pusu! ❤️',
-        },
-        {
-          day: 3,
-          type: "game",
-          gameType: "tictactoe", // Klíčové slovo
-          text: "Dneska si o pusu (nebo pět 🤭) musíš zahrát! Když vyhraješ, máš je u mě. 🥰 A když prohraješ... tak samozřejmě taky. 😘",
-        },
-        {
-          day: 4,
-          type: "image",
-          src: "./images/My1.webp",
-          text: "Víkend už je skoro na dohled. Dneska je tu pusa a připomínka, že jsi pro mě ta nejlepší z nejlepších na světě! ❤️",
-        },
-        {
-          day: 5,
-          type: "image",
-          src: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdjljeDBpbDV2NWtpNHplYXF6aGFuM29pOWU4cWYxNDFtdHRpemxpYyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/O1w2wSTriddUA/giphy.gif",
-          text: "Pátek je tu! 🎉 Pracovní týden máme skoro za sebou. Dáme si večer randíčko a 1to1? 🥰 Miluju tě a obdivuju, jak všechno zvládáš. ❤️",
-        },
-        {
-          day: 6,
-          type: "image",
-          src: "URL_OBRAZKU",
-          text: "Mikulášská sobota! 🎅 Doufám, že jsi byla hodná (já vím, že jsi byla nejhodnější). Dneska je tvůj den, tak si ho užij přesně podle sebe. Žádný stres, jen pohoda.",
-        },
-        {
-          day: 7,
-          type: "game",
-          gameType: "pexeso",
-          text: "Speciální pexeso pro speciální Princeznu. 🤭 Najdi 6 věcí, které máš ráda! 😇❤️",
-        },
-        {
-          day: 8,
-          type: "image",
-          src: "URL_OBRAZKU",
-          text: "Nové pondělí, nový start. Ať ti to dneska odsýpá. Vím, že hledání té správné cesty není vždycky lehké, ale věřím ti. Jsi talentovaná a svět (nebo aspoň Madeira) ti leží u nohou.",
-        },
-        {
-          day: 9,
-          type: "text",
-          text: "Úterý. Jen krátká zpráva pro zlepšení dne: Jsi krásná, chytrá a vtipná. A máš super kluka (haha). Ne, vážně, miluju tvůj úsměv. 😍",
-        },
-        {
-          day: 10,
-          type: "text",
-          text: 'Středa a začátek tvé "Solo Madeira" mise! 🛫 Já právě mířím do Prahy, ale myslí mi to jen na tebe. Nebuď smutná, uteče to jako voda. Užij si, že máš celý byt (a postel!) jen pro sebe a pusť si ty seriály, u kterých vždycky brblám. ❤️',
-        },
-        {
-          day: 11,
-          type: "game",
-          gameType: "rps", // Klíčové slovo
-          text: "Čtvrtek v Praze (pravděpodobně mrznu). 🥶 I když nás dělí pár tisíc kilometrů a kus oceánu, díky kvantovému provázání (nebo prostě moderním technologiím) si můžeme střihnout Kámen, Nůžky, Papír. Tak co, vyhraješ? ❤️😘",
-        },
-        {
-          day: 12,
-          type: "image",
-          src: "URL_TVOJE_FOTKY", // Sem dej ideálně fotku vás dvou
-          text: "Pátek! Poslední večer o samotě. Jsi statečná a úžasná, že to tam zvládáš. Dneska to chce klidný režim, skleničku vína a brzy spát, protože zítra... zítra už se vracím! Nemůžu se dočkat.",
-        },
-        {
-          day: 13,
-          type: "text",
-          text: "Sobota = Návrat domů! ✈️ Jestli bude vítr na letišti spolupracovat a pilot to trefí, odpoledne jsem u tebe. Připrav se na velké objímání. Už mi to naše ostrovní hnízdečko (a hlavně ty) chybělo. Miluju tě! ❤️",
-        },
-        {
-          day: 14,
-          type: "game",
-          gameType: "clicker",
-          text: "Máš tu ode mě připravenou zásobu pusinek. 😚 Stihneš si je všechny vybrat? 🤭❤️ Tak připravit paleček... pozór...",
-        },
-        {
-          day: 15,
-          type: "video",
-          src: "URL_VIDEA",
-          text: "Pondělí. Půlka prosince je pryč! Ať ti dnešní den uteče jako voda. Večer tě budu čekat a můžeme probrat všechno možné i nemožné.",
-        },
-        {
-          day: 16,
-          type: "image",
-          src: "URL_OBRAZKU",
-          text: "Úterý. Nenech se ničím rozhodit. Jsi silná žena (a moje hrdinka). Posílám ti virtuální objetí, které tě bude hřát celý den.",
-        },
-        {
-          day: 17,
-          type: "image",
-          src: "URL_OBRAZKU",
-          text: "Středa. Už jen týden do Vánoc! Cítíš tu atmosféru? I když tady na Madeře je to spíš jarní atmosféra, ale s tebou jsou Vánoce kdekoliv. 🎄",
-        },
-        {
-          day: 18,
-          type: "text",
-          text: "Čtvrtek. Dneska žádný Gatsby jako loni, ale my si umíme udělat párty i ve dvou v obýváku, ne? Těším se na večer. 😍",
-        },
-        {
-          day: 19,
-          type: "image",
-          src: "URL_OBRAZKU",
-          text: "Pátek! Poslední předvánoční pracovní pátek. To si zaslouží oslavu. Jsi skvělá, že to všechno zvládáš. Lásko, užij si dnešní překvapení.",
-        },
-        {
-          day: 20,
-          type: "video",
-          src: "URL_VIDEA",
-          text: "Sobota. Vánoční přípravy finišují, ale my se stresovat nebudeme, že ne? Hlavní je, že jsme spolu a v teple. ❤️",
-        },
-        {
-          day: 21,
-          type: "game",
-          gameType: "whackamole",
-          text: "Pozor, čičinky chtějí BUP na čumáček! 😺 Ale jsou nedochvilné... Stihni jich BUPnout aspoň 10, než vyprší čas. Hodně štěstí! 😽",
-        },
-        {
-          day: 22,
-          type: "text",
-          text: "Pondělí. Už jen dva dny! Vánoční nálada level 1000. Ať je dnešní den v práci/doma co nejkratší.",
-        },
-        {
-          day: 23,
-          type: "image",
-          src: "URL_OBRAZKU",
-          text: "Úterý. Předvečer Vánoc. Všechno hoď za hlavu, dárky (ty virtuální i nevirtuální) jsou připravené, cukroví (snad) máme. Těším se na zítřek! 😘",
-        },
-        {
-          day: 24,
-          type: "video",
-          src: "URL_VIDEA", // Sem dej nějaké fakt pěkné vánoční video nebo video vzkaz od tebe
-          text: "Veselé Vánoce, Adél! 🎄 I když jsme daleko od domova, domov je tam, kde jsi ty. Děkuju, že se mnou jdeš do každého dobrodružství. Jsi můj největší dárek. Miluju tě až za hranice vesmíru. ❤️",
-        },
-      ];
+            // --- TVOJE DATA (Zkopíruj sem ten finální list objektů 1-24) ---
+            const adventData = [
+              // ... sem vlož data ...
+              {
+                day: 1,
+                type: "image",
+                src: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOG84OHRkN2hqbDc3cHg1NnJldXo5YnVvZ2hxZ3d1eWluMGV1NWxpaiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/l29MVhX6iz7dS/giphy.gif",
+                text: "Lásko moje nejmilovanější,<br>vítej v digitální verzi naší tradice! Letos jsem musel vyměnit skleničky a krabičky za pixely, protože dodání zásilek na Madeiru je jako sázka do loterie. Ale láska (a zviřátka) se do jedniček a nul vejdou taky. 🤭<br>Tak krásný, náš vlastní, advent! Miluju Tě ❤️",
+              },
+              {
+                day: 2,
+                type: "image",
+                src: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExazR6YzFnZWdqejN0ajBlcHJjcm1lMjJuc2U3MmpxbDdoYzY2eGR4OCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/HXpzpXB5syQGQ/giphy.gif",
+                text: 'Úterý je často prostě "ten den po pondělí", ale ty jsi nejlepšejší beruška na světě a tak ho určitě zvládneš s přehledem. A kdyby tě cokoli rozladilo, posílám koťátka na zlepšení nálady. 🤭 Jo... a přijď si pro pusu! ❤️',
+              },
+              {
+                day: 3,
+                type: "game",
+                gameType: "tictactoe", // Klíčové slovo
+                text: "Dneska si o pusu (nebo pět 🤭) musíš zahrát! Když vyhraješ, máš je u mě. 🥰 A když prohraješ... tak samozřejmě taky. 😘",
+              },
+              {
+                day: 4,
+                type: "image",
+                src: "./images/My1.webp",
+                text: "Víkend už je skoro na dohled. Dneska je tu pusa a připomínka, že jsi pro mě ta nejlepší z nejlepších na světě! ❤️",
+              },
+              {
+                day: 5,
+                type: "image",
+                src: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdjljeDBpbDV2NWtpNHplYXF6aGFuM29pOWU4cWYxNDFtdHRpemxpYyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/O1w2wSTriddUA/giphy.gif",
+                text: "Pátek je tu! 🎉 Pracovní týden máme skoro za sebou. Dáme si večer randíčko a 1to1? 🥰 Miluju tě a obdivuju, jak všechno zvládáš. ❤️",
+              },
+              {
+                day: 6,
+                type: "image",
+                src: "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExdHo0cjl6d290NmFsamVtazNxMTYyNXZ0eDRvOGFqYWwxN2k5eXBncyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xT9DPIBYf0pAviBLzO/giphy.gif",
+                text: "Vím, že hledání té správné cesty není lehké, ale věřím v Tebe. ❤️ Jsi úžasná, nejšikovnější a nejskvělejší a svět (Madeira určitě 🤭) ti leží u nohou. Stačí si to jen uvědomit. 🤩❤️🫶",
+              },
+              {
+                day: 7,
+                type: "game",
+                gameType: "pexeso",
+                text: "Speciální pexeso pro speciální Princeznu. 🤭 Najdi 6 věcí, které máš ráda! 😇❤️",
+              },
+              {
+                day: 8,
+                type: "image",
+                src: "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3dW00ZjRkYzBlb3k2anFkbjB6Mm40OTNraXlnNGYzZDNwa29wbXY0aSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/YWIL6UbCq3SJGoSX4y/giphy.gif",
+                text: "Dneska mám dovolenou! Pojďme vyrazit někam na středně dlouhý hike! 🏞️. Teším se na celý den s tebou 🥰",
+              },
+              {
+                day: 9,
+                type: "image",
+                src: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZWpkcmY1dGZtcnoxdWVtajh0a2JsczE5M2ZjZWswamlmaTdyZXR5OCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/2GqXL4tCvRVkDBhMU4/giphy.gif",
+                text: "Úterý a začátek tvé \"Solo Madeira\" mise! 🛫 Dneska odpo mířím do Prahy... 😟 Budu na tebe pořád myslet a určitě to uteče to jako voda. Užij si, že máš celý byt jen pro sebe a udělej se pořádný MY TIME. ❤️"
+              },
+              {
+                day: 10,
+                type: "image",
+                src: "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3aWNnMnVuZnE0eGg2YmI4NW9wdmJrdjQ4MXRtNGJxNDhxcDZleWc2YiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/xT39CXg70nNS0MFNLy/giphy.gif",
+                text: "Love you the biggest time! ❤️",
+              },
+              {
+                day: 11,
+                type: "game",
+                gameType: "rps",
+                text: "Čtvrtek v Praze (pravděpodobně mrznu). 🥶 I když nás dělí pár tisíc kilometrů a kus oceánu, díky kvantovému provázání (nebo prostě moderním technologiím) si můžeme střihnout Kámen, Nůžky, Papír. Tak co, vyhraješ? ❤️😘",
+              },
+              {
+                day: 12,
+                type: "image",
+                src: "./images/my3.webp",
+                text: "Pátek! Poslední večer o samotě. Jsi statečná a úžasná, že to tam zvládáš. 🥰 Dneska si to chce ještě pořádně užít MY TIME, protože zítra... zítra už se vracím! 🤭 Nemůžu se na tebe dočkat. ❤️",
+              },
+              {
+                day: 13,
+                type: "image",
+                src: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNXgzM3FoaWwxZ25lZGE2MW52azB4a3d1MWo4aW01cWRxbGcyYnprZiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/HUiSFpo0KfOdG/giphy.gif",
+                text: "Sobota = Návrat domů! ✈️ Jestli bude vítr na letišti spolupracovat a pilot to trefí, odpoledne jsem u tebe. Připrav se na velký huggie a pusinky. 🤭 Už mi to naše ostrovní hnízdečko (a hlavně ty 🥰) chybělo. Miluju tě! ❤️",
+              },
+              {
+                day: 14,
+                type: "game",
+                gameType: "clicker",
+                text: "Máš tu ode mě připravenou zásobu pusinek. 😚 Stihneš si je všechny vybrat? 🤭❤️ Tak připravit paleček... pozór...",
+              },
+              {
+                day: 15,
+                type: "video",
+                src: "URL_VIDEA",
+                text: "Pondělí. Půlka prosince je pryč! Ať ti dnešní den uteče jako voda. Večer tě budu čekat a můžeme probrat všechno možné i nemožné.",
+              },
+              {
+                day: 16,
+                type: "image",
+                src: "URL_OBRAZKU",
+                text: "Úterý. Nenech se ničím rozhodit. Jsi silná žena (a moje hrdinka). Posílám ti virtuální objetí, které tě bude hřát celý den.",
+              },
+              {
+                day: 17,
+                type: "image",
+                src: "URL_OBRAZKU",
+                text: "Středa. Už jen týden do Vánoc! Cítíš tu atmosféru? I když tady na Madeře je to spíš jarní atmosféra, ale s tebou jsou Vánoce kdekoliv. 🎄",
+              },
+              {
+                day: 18,
+                type: "text",
+                text: "Čtvrtek. Dneska žádný Gatsby jako loni, ale my si umíme udělat párty i ve dvou v obýváku, ne? Těším se na večer. 😍",
+              },
+              {
+                day: 19,
+                type: "image",
+                src: "URL_OBRAZKU",
+                text: "Pátek! Poslední předvánoční pracovní pátek. To si zaslouží oslavu. Jsi skvělá, že to všechno zvládáš. Lásko, užij si dnešní překvapení.",
+              },
+              {
+                day: 20,
+                type: "video",
+                src: "URL_VIDEA",
+                text: "Sobota. Vánoční přípravy finišují, ale my se stresovat nebudeme, že ne? Hlavní je, že jsme spolu a v teple. ❤️",
+              },
+              {
+                day: 21,
+                type: "game",
+                gameType: "whackamole",
+                text: "Pozor, čičinky chtějí BUP na čumáček! 😺 Ale jsou nedochvilné... Stihni jich BUPnout aspoň 10, než vyprší čas. Hodně štěstí! 😽",
+              },
+              {
+                day: 22,
+                type: "text",
+                text: "Pondělí. Už jen dva dny! Vánoční nálada level 1000. Ať je dnešní den v práci/doma co nejkratší.",
+              },
+              {
+                day: 23,
+                type: "image",
+                src: "URL_OBRAZKU",
+                text: "Úterý. Předvečer Vánoc. Všechno hoď za hlavu, dárky (ty virtuální i nevirtuální) jsou připravené, cukroví (snad) máme. Těším se na zítřek! 😘",
+              },
+              {
+                day: 24,
+                type: "video",
+                src: "URL_VIDEA", // Sem dej nějaké fakt pěkné vánoční video nebo video vzkaz od tebe
+                text: "Veselé Vánoce, Adél! 🎄 I když jsme daleko od domova, domov je tam, kde jsi ty. Děkuju, že se mnou jdeš do každého dobrodružství. Jsi můj největší dárek. Miluju tě až za hranice vesmíru. ❤️",
+              },
+            ];
 
-      const calendarContainer = document.getElementById("calendar");
-      const modal = document.getElementById("modal");
-      const modalBody = document.getElementById("modal-body");
+            const calendarContainer = document.getElementById("calendar");
+            const modal = document.getElementById("modal");
+            const modalBody = document.getElementById("modal-body");
 
-      const today = new Date();
-      const currentMonth = today.getMonth();
-      const currentDay = today.getDate();
+            const today = new Date();
+            const currentMonth = today.getMonth();
+            const currentDay = today.getDate();
 
-      // DEBUG MÓD (true = vše otevřeno)
-      const debugMode = false;
+            // DEBUG MÓD (true = vše otevřeno)
+            const debugMode = false;
 
-      // 1. Vygenerujeme pole čísel 1-24
-      let daysArray = Array.from({ length: 24 }, (_, i) => i + 1);
+            // 1. Vygenerujeme pole čísel 1-24
+            let daysArray = Array.from({ length: 24 }, (_, i) => i + 1);
 
-      // 2. Zamícháme je (Shuffle)
-      daysArray.sort(() => Math.random() - 0.5);
+            // 2. Zamícháme je (Shuffle)
+            daysArray.sort(() => Math.random() - 0.5);
 
-      // 3. Vykreslení gridu
-      daysArray.forEach((dayNum) => {
-        const item = adventData.find((d) => d.day === dayNum) || {
-          day: dayNum,
-          type: "text",
-          text: "Obsah se připravuje...",
-        };
+            // 3. Vykreslení gridu
+            daysArray.forEach((dayNum) => {
+              const item = adventData.find((d) => d.day === dayNum) || {
+                day: dayNum,
+                type: "text",
+                text: "Obsah se připravuje...",
+              };
 
-        const dayEl = document.createElement("div");
-        dayEl.classList.add("day-box");
-        dayEl.innerText = dayNum;
+              const dayEl = document.createElement("div");
+              dayEl.classList.add("day-box");
+              dayEl.innerText = dayNum;
 
-        // Logika stavů
-        const isDecember = currentMonth === 11;
-        const isUnlocked = debugMode || (isDecember && dayNum <= currentDay);
-        const isToday = isDecember && dayNum === currentDay;
+              // Logika stavů
+              const isDecember = currentMonth === 11;
+              const isUnlocked = debugMode || (isDecember && dayNum <= currentDay);
+              const isToday = isDecember && dayNum === currentDay;
 
-        // Zkontrolujeme, zda už bylo otevřeno (localStorage)
-        const isOpenedStorage = localStorage.getItem(`day-${dayNum}`);
+              // Zkontrolujeme, zda už bylo otevřeno (localStorage)
+              const isOpenedStorage = localStorage.getItem(`day-${dayNum}`);
 
-        if (!isUnlocked) {
-          dayEl.classList.add("locked");
-          dayEl.onclick = () =>
-            alert(`Ještě ne! Musíš vydržet do ${dayNum}. prosince ⏳`);
-        } else {
-          dayEl.onclick = () => openDay(item, dayEl);
+              if (!isUnlocked) {
+                dayEl.classList.add("locked");
+                dayEl.onclick = () =>
+                  alert(`Ještě ne! Musíš vydržet do ${dayNum}. prosince ⏳`);
+              } else {
+                dayEl.onclick = () => openDay(item, dayEl);
 
-          if (isOpenedStorage) {
-            dayEl.classList.add("opened");
-          } else if (isToday) {
-            dayEl.classList.add("today-active"); // Zvýrazníme dnešní neotevřené
-          }
-        }
+                if (isOpenedStorage) {
+                  dayEl.classList.add("opened");
+                } else if (isToday) {
+                  dayEl.classList.add("today-active"); // Zvýrazníme dnešní neotevřené
+                }
+              }
 
-        calendarContainer.appendChild(dayEl);
-      });
+              calendarContainer.appendChild(dayEl);
+            });
 
-      // Globální proměnné pro stav her (aby se resetovaly při otevření)
-      let tttBoard = ["", "", "", "", "", "", "", "", ""];
-      let gameActive = true;
+            // Globální proměnné pro stav her (aby se resetovaly při otevření)
+            let tttBoard = ["", "", "", "", "", "", "", "", ""];
+            let gameActive = true;
 
-      function openDay(item, element) {
-        let contentHtml = "";
+            function openDay(item, element) {
+              let contentHtml = "";
 
-        // --- Typ: OBRÁZEK ---
-        if (item.type === "image") {
-          contentHtml = `<img src="${item.src}" class="modal-img" alt="Den ${item.day}">`;
-        }
-        // --- Typ: VIDEO ---
-        else if (item.type === "video") {
-          contentHtml = `<div class="video-wrapper"><iframe src="${item.src}" frameborder="0" allowfullscreen></iframe></div>`;
-        }
-        // --- Typ: HRA (Piškvorky) ---
-        else if (item.type === "game" && item.gameType === "tictactoe") {
-          contentHtml = `
-            <h3>Porazíš kalendář<br>v piškvorkách?</h3>
-            <div class="game-container">
-                <div class="tictactoe-board" id="ttt-board">
-                    </div>
-                <div class="game-result" id="ttt-result">Tvůj tah (X)</div>
-                <button class="reset-btn" onclick="initTicTacToe()">Zkusit znovu</button>
-            </div>
-        `;
-        }
-        // --- Typ: HRA (Kámen Nůžky Papír) ---
-        else if (item.type === "game" && item.gameType === "rps") {
-          contentHtml = `
-            <h3>Kámen, nůžky, papír!</h3>
-            <div class="game-container">
-                <div class="rps-buttons">
-                    <button class="rps-btn" onclick="playRPS('✊')">✊</button>
-                    <button class="rps-btn" onclick="playRPS('✌️')">✌️</button>
-                    <button class="rps-btn" onclick="playRPS('✋')">✋</button>
-                </div>
-                <div class="game-info" id="rps-result">Vyber si!</div>
-            </div>
-        `;
-        }
-        // --- PEXESO ---
-        else if (item.type === "game" && item.gameType === "pexeso") {
-          contentHtml = `
-            <h3>Pexesoooo!</h3>
-            <div class="game-container">
-                <div class="pexeso-board" id="pexeso-board"></div>
-                <div class="game-result" id="pexeso-result">Najdi 6 párů</div>
-                <button class="reset-btn" onclick="initPexeso()">Zamíchat znovu</button>
-            </div>
-        `;
-        }
-        // --- CLICKER ---
-        else if (item.type === "game" && item.gameType === "clicker") {
-          contentHtml = `
-            <h3>Pusinky do zásoby!</h3>
-            <h4>Klikej co nejrychleji!<br>Zbývající čas: <span id="clicker-time">10</span>s</h4>
-            <div class="game-container clicker-container">
-                <div class="progress-bar-wrap"><div class="progress-bar-fill" id="clicker-progress"></div></div>
-                <div class="click-target" onclick="clickerClick()">💋</div>
-                
-                <div class="game-result" id="clicker-status" style="min-height: 30px;">Připrav se...</div>
-                
-                <button class="reset-btn" onclick="initClicker()" id="clicker-start-btn">Start!</button>
-            </div>
-        `;
-        }
-        // --- WHACK-A-MOLE ---
-        else if (item.type === "game" && item.gameType === "whackamole") {
-          contentHtml = `
-            <h3>Stihneš 10 čičinek?</h3>
-             <h4>Zbývá čas: <span id="whack-time">15</span>s | Skóre: <span id="whack-score">0</span></h4>
-            <div class="game-container">
-                <div class="whack-board" id="whack-board">
-                    </div>
-                <div class="game-result" id="whack-result">Připrav se...</div>
-                <button class="reset-btn" onclick="initWhackAMole()" id="whack-start-btn">Start!</button>
-            </div>
-        `;
-        }
+              // --- Typ: OBRÁZEK ---
+              if (item.type === "image") {
+                contentHtml = `<img src="${item.src}" class="modal-img" alt="Den ${item.day}">`;
+              }
+              // --- Typ: VIDEO ---
+              else if (item.type === "video") {
+                contentHtml = `<div class="video-wrapper"><iframe src="${item.src}" frameborder="0" allowfullscreen></iframe></div>`;
+              }
+              // --- Typ: HRA (Piškvorky) ---
+              else if (item.type === "game" && item.gameType === "tictactoe") {
+                contentHtml = `
+                  <h3>Porazíš kalendář<br>v piškvorkách?</h3>
+                  <div class="game-container">
+                      <div class="tictactoe-board" id="ttt-board">
+                          </div>
+                      <div class="game-result" id="ttt-result">Tvůj tah (X)</div>
+                      <button class="reset-btn" onclick="initTicTacToe()">Zkusit znovu</button>
+                  </div>
+              `;
+              }
+              // --- Typ: HRA (Kámen Nůžky Papír) ---
+              else if (item.type === "game" && item.gameType === "rps") {
+                contentHtml = `
+                  <h3>Kámen, nůžky, papír!</h3>
+                  <div class="game-container">
+                      <div class="rps-buttons">
+                          <button class="rps-btn" onclick="playRPS('✊')">✊</button>
+                          <button class="rps-btn" onclick="playRPS('✌️')">✌️</button>
+                          <button class="rps-btn" onclick="playRPS('✋')">✋</button>
+                      </div>
+                      <div class="game-info" id="rps-result">Vyber si!</div>
+                  </div>
+              `;
+              }
+              // --- PEXESO ---
+              else if (item.type === "game" && item.gameType === "pexeso") {
+                contentHtml = `
+                  <h3>Pexesoooo!</h3>
+                  <div class="game-container">
+                      <div class="pexeso-board" id="pexeso-board"></div>
+                      <div class="game-result" id="pexeso-result">Najdi 6 párů</div>
+                      <button class="reset-btn" onclick="initPexeso()">Zamíchat znovu</button>
+                  </div>
+              `;
+              }
+              // --- CLICKER ---
+              else if (item.type === "game" && item.gameType === "clicker") {
+                contentHtml = `
+                  <h3>Pusinky do zásoby!</h3>
+                  <h4>Klikej co nejrychleji!<br>Zbývající čas: <span id="clicker-time">10</span>s</h4>
+                  <div class="game-container clicker-container">
+                      <div class="progress-bar-wrap"><div class="progress-bar-fill" id="clicker-progress"></div></div>
+                      <div class="click-target" onclick="clickerClick()">💋</div>
 
-        // Společný text pod obsahem
-        contentHtml += `<p>${item.text}</p>`;
+                      <div class="game-result" id="clicker-status" style="min-height: 30px;">Připrav se...</div>
 
-        modalBody.innerHTML = contentHtml;
-        modal.style.display = "flex";
+                      <button class="reset-btn" onclick="initClicker()" id="clicker-start-btn">Start!</button>
+                  </div>
+              `;
+              }
+              // --- WHACK-A-MOLE ---
+              else if (item.type === "game" && item.gameType === "whackamole") {
+                contentHtml = `
+                  <h3>Stihneš 10 čičinek?</h3>
+                   <h4>Zbývá čas: <span id="whack-time">15</span>s | Skóre: <span id="whack-score">0</span></h4>
+                  <div class="game-container">
+                      <div class="whack-board" id="whack-board">
+                          </div>
+                      <div class="game-result" id="whack-result">Připrav se...</div>
+                      <button class="reset-btn" onclick="initWhackAMole()" id="whack-start-btn">Start!</button>
+                  </div>
+              `;
+              }
 
-        // Uložení stavu a stylu
-        localStorage.setItem(`day-${item.day}`, "true");
-        element.classList.remove("today-active");
-        element.classList.add("opened");
+              // Společný text pod obsahem
+              contentHtml += `<p>${item.text}</p>`;
 
-        // --- INICIALIZACE HER PO VYKRESLENÍ HTML ---
-        if (item.type === "game") {
-          if (item.gameType === "tictactoe") initTicTacToe();
-          if (item.gameType === "pexeso") initPexeso();
-          if (item.gameType === 'whackamole') setupWhackBoard();
-        }
-      }
+              modalBody.innerHTML = contentHtml;
+              modal.style.display = "flex";
 
-      function closeModal() {
-        modal.style.display = "none";
-        modalBody.innerHTML = ""; // Vymaže obsah
+              // Uložení stavu a stylu
+              localStorage.setItem(`day-${item.day}`, "true");
+              element.classList.remove("today-active");
+              element.classList.add("opened");
 
-        // Zastaví případné aktivní herní smyčky
-        if (typeof clickerTimer !== "undefined") clearInterval(clickerTimer);
-        if (typeof whackTimer !== "undefined") clearInterval(whackTimer);
-
-        if (typeof clickerActive !== "undefined") clickerActive = false;
-        if (typeof whackActive !== "undefined") whackActive = false;
-      }
-
-      window.onclick = function (event) {
-        if (event.target == modal) closeModal();
-      };
-
-      // --- LOGIKA PRO PIŠKVORKY (TIC TAC TOE) ---
-      function initTicTacToe() {
-        tttBoard = ["", "", "", "", "", "", "", "", ""];
-        gameActive = true;
-        const boardEl = document.getElementById("ttt-board");
-        const resultEl = document.getElementById("ttt-result");
-        resultEl.innerText = "Tvůj tah (X)";
-
-        boardEl.innerHTML = "";
-        tttBoard.forEach((cell, index) => {
-          const cellEl = document.createElement("div");
-          cellEl.classList.add("ttt-cell");
-          cellEl.onclick = () => makeMove(index);
-          boardEl.appendChild(cellEl);
-        });
-      }
-
-      function makeMove(index) {
-        if (!gameActive || tttBoard[index] !== "") return;
-
-        // Tah hráče (X)
-        tttBoard[index] = "X";
-        updateBoardUI();
-
-        if (checkWin("X")) {
-          endGame("Vyhrála jsi! 🎉");
-          return;
-        }
-        if (!tttBoard.includes("")) {
-          endGame("Remíza! 🤝");
-          return;
-        }
-
-        // Tah počítače (O) - jednoduchá AI (náhodný tah)
-        gameActive = false; // Zámek
-        setTimeout(() => {
-          let emptyIndices = tttBoard
-            .map((e, i) => (e === "" ? i : null))
-            .filter((e) => e !== null);
-          let randomMove =
-            emptyIndices[Math.floor(Math.random() * emptyIndices.length)];
-
-          if (randomMove !== undefined) {
-            tttBoard[randomMove] = "O";
-            updateBoardUI();
-
-            if (checkWin("O")) {
-              endGame("Kalendář vyhrál! 🫣");
-            } else if (!tttBoard.includes("")) {
-              endGame("Remíza! 🤝");
-            } else {
-              gameActive = true;
+              // --- INICIALIZACE HER PO VYKRESLENÍ HTML ---
+              if (item.type === "game") {
+                if (item.gameType === "tictactoe") initTicTacToe();
+                if (item.gameType === "pexeso") initPexeso();
+                if (item.gameType === "whackamole") setupWhackBoard();
+              }
             }
-          }
-        }, 600); // Malé zpoždění, ať to vypadá, že přemýšlí
-      }
 
-      function updateBoardUI() {
-        const cells = document.querySelectorAll(".ttt-cell");
-        tttBoard.forEach((val, i) => {
-          cells[i].innerText = val;
-          cells[i].style.color = val === "X" ? "#bc4749" : "#2d3748";
-        });
-      }
+            function closeModal() {
+              modal.style.display = "none";
+              modalBody.innerHTML = ""; // Vymaže obsah
 
-      function checkWin(player) {
-        const wins = [
-          [0, 1, 2],
-          [3, 4, 5],
-          [6, 7, 8], // Řádky
-          [0, 3, 6],
-          [1, 4, 7],
-          [2, 5, 8], // Sloupce
-          [0, 4, 8],
-          [2, 4, 6], // Diagonály
-        ];
-        return wins.some((combo) => combo.every((i) => tttBoard[i] === player));
-      }
+              // Zastaví případné aktivní herní smyčky
+              if (typeof clickerTimer !== "undefined") clearInterval(clickerTimer);
+              if (typeof whackTimer !== "undefined") clearInterval(whackTimer);
 
-      function endGame(message) {
-        gameActive = false;
-        document.getElementById("ttt-result").innerText = message;
-      }
+              if (typeof clickerActive !== "undefined") clickerActive = false;
+              if (typeof whackActive !== "undefined") whackActive = false;
+            }
 
-      // --- LOGIKA PRO KÁMEN, NŮŽKY, PAPÍR ---
-      function playRPS(playerChoice) {
-        const choices = ["✊", "✋", "✌️"];
-        const aiChoice = choices[Math.floor(Math.random() * choices.length)];
-        const resultEl = document.getElementById("rps-result");
+            window.onclick = function (event) {
+              if (event.target == modal) closeModal();
+            };
 
-        let result = "";
+            // --- LOGIKA PRO PIŠKVORKY (TIC TAC TOE) ---
+            function initTicTacToe() {
+              tttBoard = ["", "", "", "", "", "", "", "", ""];
+              gameActive = true;
+              const boardEl = document.getElementById("ttt-board");
+              const resultEl = document.getElementById("ttt-result");
+              resultEl.innerText = "Tvůj tah (X)";
 
-        if (playerChoice === aiChoice) {
-          result = "Remíza! 🤝";
-        } else if (
-          (playerChoice === "✊" && aiChoice === "✌️") ||
-          (playerChoice === "✋" && aiChoice === "✊") ||
-          (playerChoice === "✌️" && aiChoice === "✋")
-        ) {
-          result = "Vyhrála jsi! 🎉";
-        } else {
-          result = "Já vyhrál... 🫣";
-        }
+              boardEl.innerHTML = "";
+              tttBoard.forEach((cell, index) => {
+                const cellEl = document.createElement("div");
+                cellEl.classList.add("ttt-cell");
+                cellEl.onclick = () => makeMove(index);
+                boardEl.appendChild(cellEl);
+              });
+            }
 
-        resultEl.innerHTML = `TY: ${playerChoice}   JÁ: ${aiChoice}<br><span class="game-result">${result}</span>`;
-      }
+            function makeMove(index) {
+              if (!gameActive || tttBoard[index] !== "") return;
 
-      // --- PEXESO LOGIKA ---
-      let pexesoCards = [];
-      let flippedCards = [];
-      let matchedPairs = 0;
-      const totalPairs = 6; // Pro mřížku 4x3
+              // Tah hráče (X)
+              tttBoard[index] = "X";
+              updateBoardUI();
 
-      function initPexeso() {
-        const board = document.getElementById("pexeso-board");
-        const result = document.getElementById("pexeso-result");
-        board.innerHTML = "";
-        matchedPairs = 0;
-        flippedCards = [];
-        result.innerText = `Najdi ${totalPairs} párů`;
+              if (checkWin("X")) {
+                endGame("Vyhrála jsi! 🎉");
+                return;
+              }
+              if (!tttBoard.includes("")) {
+                endGame("Remíza! 🤝");
+                return;
+              }
 
-        // Emojis pro páry (můžeš nahradit i obrázky <img>)
-        const items = ["🐱", "🚗", "📖", "🌊", "🐶", "🏺"];
-        // Zdvojíme a zamícháme
-        pexesoCards = [...items, ...items].sort(() => Math.random() - 0.5);
+              // Tah počítače (O) - jednoduchá AI (náhodný tah)
+              gameActive = false; // Zámek
+              setTimeout(() => {
+                let emptyIndices = tttBoard
+                  .map((e, i) => (e === "" ? i : null))
+                  .filter((e) => e !== null);
+                let randomMove =
+                  emptyIndices[Math.floor(Math.random() * emptyIndices.length)];
 
-        pexesoCards.forEach((item, index) => {
-          const card = document.createElement("div");
-          card.classList.add("pexeso-card");
-          card.dataset.index = index;
-          card.dataset.value = item;
-          card.innerText = item; // Emoji je tam skryté barvou textu
-          card.onclick = () => flipCard(card);
-          board.appendChild(card);
-        });
-      }
+                if (randomMove !== undefined) {
+                  tttBoard[randomMove] = "O";
+                  updateBoardUI();
 
-      function flipCard(card) {
-        // Pojistky: nelze kliknout na již otočenou, hotovou, nebo když už jsou 2 otočené
-        if (
-          card.classList.contains("flipped") ||
-          card.classList.contains("matched") ||
-          flippedCards.length === 2
-        )
-          return;
+                  if (checkWin("O")) {
+                    endGame("Kalendář vyhrál! 🫣");
+                  } else if (!tttBoard.includes("")) {
+                    endGame("Remíza! 🤝");
+                  } else {
+                    gameActive = true;
+                  }
+                }
+              }, 600); // Malé zpoždění, ať to vypadá, že přemýšlí
+            }
 
-        card.classList.add("flipped");
-        flippedCards.push(card);
+            function updateBoardUI() {
+              const cells = document.querySelectorAll(".ttt-cell");
+              tttBoard.forEach((val, i) => {
+                cells[i].innerText = val;
+                cells[i].style.color = val === "X" ? "#bc4749" : "#2d3748";
+              });
+            }
 
-        if (flippedCards.length === 2) {
-          checkForMatch();
-        }
-      }
+            function checkWin(player) {
+              const wins = [
+                [0, 1, 2],
+                [3, 4, 5],
+                [6, 7, 8], // Řádky
+                [0, 3, 6],
+                [1, 4, 7],
+                [2, 5, 8], // Sloupce
+                [0, 4, 8],
+                [2, 4, 6], // Diagonály
+              ];
+              return wins.some((combo) => combo.every((i) => tttBoard[i] === player));
+            }
 
-      function checkForMatch() {
-        const [card1, card2] = flippedCards;
-        const isMatch = card1.dataset.value === card2.dataset.value;
+            function endGame(message) {
+              gameActive = false;
+              document.getElementById("ttt-result").innerText = message;
+            }
 
-        if (isMatch) {
-          card1.classList.add("matched");
-          card2.classList.add("matched");
-          matchedPairs++;
-          flippedCards = [];
-          if (matchedPairs === totalPairs) {
-            document.getElementById("pexeso-result").innerText =
-              "Jsi skvělá! 🎉";
-          }
-        } else {
-          // Neshoda - otočíme zpět za chvilku
-          setTimeout(() => {
-            card1.classList.remove("flipped");
-            card2.classList.remove("flipped");
-            flippedCards = [];
-          }, 1000);
-        }
-      }
+            // --- LOGIKA PRO KÁMEN, NŮŽKY, PAPÍR ---
+            function playRPS(playerChoice) {
+              const choices = ["✊", "✋", "✌️"];
+              const aiChoice = choices[Math.floor(Math.random() * choices.length)];
+              const resultEl = document.getElementById("rps-result");
 
-      // --- COOKIE CLICKER LOGIKA ---
-      let clicks = 0;
-      const clicksNeeded = 50;
-      let clickerTimeLeft = 10;
-      let clickerTimer = null; // Důležité: Musí být definováno takto globálně
-      let clickerActive = false;
+              let result = "";
 
-      function initClicker() {
-        clicks = 0;
-        clickerTimeLeft = 10;
-        clickerActive = true;
+              if (playerChoice === aiChoice) {
+                result = "Remíza! 🤝";
+              } else if (
+                (playerChoice === "✊" && aiChoice === "✌️") ||
+                (playerChoice === "✋" && aiChoice === "✊") ||
+                (playerChoice === "✌️" && aiChoice === "✋")
+              ) {
+                result = "Vyhrála jsi! 🎉";
+              } else {
+                result = "Já vyhrál... 🫣";
+              }
 
-        // Reset UI
-        document.getElementById("clicker-time").innerText = clickerTimeLeft;
-        document.getElementById("clicker-progress").style.width = "0%";
-        document.getElementById("clicker-status").innerText =
-          "Klikej jako o život!";
-        document.getElementById("clicker-status").style.color = "#bc4749"; // Reset barvy textu
+              resultEl.innerHTML = `TY: <span class="choice">${playerChoice}</span>   JÁ: <span class="choice">${aiChoice}</span><br><span class="game-result">${result}</span>`;
+            }
 
-        document.getElementById("clicker-start-btn").style.display = "none";
+            // --- PEXESO LOGIKA ---
+            let pexesoCards = [];
+            let flippedCards = [];
+            let matchedPairs = 0;
+            const totalPairs = 6; // Pro mřížku 4x3
 
-        // Pojistka: Zrušit předchozí timer, pokud běží
-        if (clickerTimer) clearInterval(clickerTimer);
+            function initPexeso() {
+              const board = document.getElementById("pexeso-board");
+              const result = document.getElementById("pexeso-result");
+              board.innerHTML = "";
+              matchedPairs = 0;
+              flippedCards = [];
+              result.innerText = `Najdi ${totalPairs} párů`;
 
-        clickerTimer = setInterval(() => {
-          // --- HLAVNÍ POJISTKA ---
-          // Pokud už hra skončila (výhrou), ale timer ještě tiknul,
-          // okamžitě ho zastavíme a nedovolíme odečíst čas.
-          if (!clickerActive) {
-            clearInterval(clickerTimer);
-            return;
-          }
+              // Emojis pro páry (můžeš nahradit i obrázky <img>)
+              const items = ["🐱", "🚗", "📖", "🌊", "🐶", "🏺"];
+              // Zdvojíme a zamícháme
+              pexesoCards = [...items, ...items].sort(() => Math.random() - 0.5);
 
-          clickerTimeLeft--;
+              pexesoCards.forEach((item, index) => {
+                const card = document.createElement("div");
+                card.classList.add("pexeso-card");
+                card.dataset.index = index;
+                card.dataset.value = item;
+                card.innerText = item; // Emoji je tam skryté barvou textu
+                card.onclick = () => flipCard(card);
+                board.appendChild(card);
+              });
+            }
 
-          // Bezpečný zápis času
-          const timeEl = document.getElementById("clicker-time");
-          if (timeEl) timeEl.innerText = clickerTimeLeft;
+            function flipCard(card) {
+              // Pojistky: nelze kliknout na již otočenou, hotovou, nebo když už jsou 2 otočené
+              if (
+                card.classList.contains("flipped") ||
+                card.classList.contains("matched") ||
+                flippedCards.length === 2
+              )
+                return;
 
-          // Kontrola prohry
-          if (clickerTimeLeft <= 0) {
-            endClicker(false);
-          }
-        }, 1000);
-      }
+              card.classList.add("flipped");
+              flippedCards.push(card);
 
-      function clickerClick() {
-        // Pokud hra neběží, klikání nic nedělá
-        if (!clickerActive) return;
+              if (flippedCards.length === 2) {
+                checkForMatch();
+              }
+            }
 
-        clicks++;
+            function checkForMatch() {
+              const [card1, card2] = flippedCards;
+              const isMatch = card1.dataset.value === card2.dataset.value;
 
-        // Progress bar
-        const progress = (clicks / clicksNeeded) * 100;
-        const progressEl = document.getElementById("clicker-progress");
-        if (progressEl) progressEl.style.width = `${progress}%`;
+              if (isMatch) {
+                card1.classList.add("matched");
+                card2.classList.add("matched");
+                matchedPairs++;
+                flippedCards = [];
+                if (matchedPairs === totalPairs) {
+                  document.getElementById("pexeso-result").innerText =
+                    "Jsi skvělá! 🎉";
+                }
+              } else {
+                // Neshoda - otočíme zpět za chvilku
+                setTimeout(() => {
+                  card1.classList.remove("flipped");
+                  card2.classList.remove("flipped");
+                  flippedCards = [];
+                }, 1000);
+              }
+            }
 
-        // Kontrola výhry
-        if (clicks >= clicksNeeded) {
-          endClicker(true);
-        }
-      }
+            // --- COOKIE CLICKER LOGIKA ---
+            let clicks = 0;
+            const clicksNeeded = 50;
+            let clickerTimeLeft = 10;
+            let clickerTimer = null; // Důležité: Musí být definováno takto globálně
+            let clickerActive = false;
 
-      function endClicker(win) {
-        // 1. Okamžitě vypneme stav hry
-        clickerActive = false;
+            function initClicker() {
+              clicks = 0;
+              clickerTimeLeft = 10;
+              clickerActive = true;
 
-        // 2. Zastavíme časovač
-        if (clickerTimer) clearInterval(clickerTimer);
+              // Reset UI
+              document.getElementById("clicker-time").innerText = clickerTimeLeft;
+              document.getElementById("clicker-progress").style.width = "0%";
+              document.getElementById("clicker-status").innerText =
+                "Klikej jako o život!";
+              document.getElementById("clicker-status").style.color = "#bc4749"; // Reset barvy textu
 
-        // 3. Zobrazíme tlačítko pro restart
-        document.getElementById("clicker-start-btn").style.display =
-          "inline-block";
+              document.getElementById("clicker-start-btn").style.display = "none";
 
-        const statusEl = document.getElementById("clicker-status");
-        if (statusEl) {
-          if (win) {
-            statusEl.innerHTML = "Jsi úžasná! ❤️<br>Teď máš pusinky do zásoby. 🤭";
-            statusEl.style.color = "#bc4749";
-          } else {
-            statusEl.innerHTML = "Čas vypršel! 🫣<br>Zkus to znovu.";
-            statusEl.style.color = "#bc4749";
-          }
-        }
-      }
+              // Pojistka: Zrušit předchozí timer, pokud běží
+              if (clickerTimer) clearInterval(clickerTimer);
 
-      // ================= WHACK-A-MOLE LOGIKA (OPTIMALIZOVANÁ) =================
-let whackScore = 0;
-const whackScoreNeeded = 10;
-let whackTimeLeft = 15;
-let whackTimer = null;
-let moleTimer = null;
-let whackActive = false;
-let lastHole;
+              clickerTimer = setInterval(() => {
+                // --- HLAVNÍ POJISTKA ---
+                // Pokud už hra skončila (výhrou), ale timer ještě tiknul,
+                // okamžitě ho zastavíme a nedovolíme odečíst čas.
+                if (!clickerActive) {
+                  clearInterval(clickerTimer);
+                  return;
+                }
 
-// 1. Tuto funkci volá openDay HNED po otevření okna
-function setupWhackBoard() {
-    const board = document.getElementById('whack-board');
-    board.innerHTML = '';
-    // Vytvoření 9 děr okamžitě
-    for(let i=0; i<9; i++) {
-        const hole = document.createElement('div');
-        hole.classList.add('whack-hole');
-        const mole = document.createElement('div');
-        mole.classList.add('whack-mole');
-        mole.innerText = '😺'; 
-        mole.onclick = bonk; // Klikání funguje, ale bonk() zkontroluje whackActive
-        hole.appendChild(mole);
-        board.appendChild(hole);
-    }
-    
-    // Reset textů pro hezký vzhled před startem
-    document.getElementById('whack-score').innerText = '0';
-    document.getElementById('whack-time').innerText = '15';
-    document.getElementById('whack-result').innerHTML = '<span class="game-info">Připrav se...</span>';
-    document.getElementById('whack-start-btn').style.display = 'inline-block';
-}
+                clickerTimeLeft--;
 
-// 2. Tuto funkci volá až tlačítko START
-function initWhackAMole() {
-    whackScore = 0;
-    whackTimeLeft = 15;
-    whackActive = true;
-    
-    document.getElementById('whack-score').innerText = whackScore;
-    document.getElementById('whack-time').innerText = whackTimeLeft;
-    document.getElementById('whack-result').innerHTML = '<span class="game-info">BUP!</span>';
-    document.getElementById('whack-start-btn').style.display = 'none';
+                // Bezpečný zápis času
+                const timeEl = document.getElementById("clicker-time");
+                if (timeEl) timeEl.innerText = clickerTimeLeft;
 
-    // Pojistka pro vyčištění starých intervalů
-    if (whackTimer) clearInterval(whackTimer);
-    if (moleTimer) clearInterval(moleTimer); // (i když moleTimer tu nepoužíváme přes interval, ale timeout, pro jistotu)
+                // Kontrola prohry
+                if (clickerTimeLeft <= 0) {
+                  endClicker(false);
+                }
+              }, 1000);
+            }
 
-    // Odpočet času
-    whackTimer = setInterval(() => {
-        if (!whackActive) {
-            clearInterval(whackTimer);
-            return;
-        }
+            function clickerClick() {
+              // Pokud hra neběží, klikání nic nedělá
+              if (!clickerActive) return;
 
-        whackTimeLeft--;
-        const timeEl = document.getElementById('whack-time');
-        if(timeEl) timeEl.innerText = whackTimeLeft;
-        
-        if (whackTimeLeft <= 0) {
-            endWhackAMole(false);
-        }
-    }, 1000);
+              clicks++;
 
-    // První krtek
-    peep();
-}
+              // Progress bar
+              const progress = (clicks / clicksNeeded) * 100;
+              const progressEl = document.getElementById("clicker-progress");
+              if (progressEl) progressEl.style.width = `${progress}%`;
 
-function randomHole(holes) {
-    const idx = Math.floor(Math.random() * holes.length);
-    const hole = holes[idx];
-    if (hole === lastHole) return randomHole(holes);
-    lastHole = hole;
-    return hole;
-}
+              // Kontrola výhry
+              if (clicks >= clicksNeeded) {
+                endClicker(true);
+              }
+            }
 
-function peep() {
-    if(!whackActive) return;
-    
-    const holes = document.querySelectorAll('.whack-hole');
-    if (holes.length === 0) return;
+            function endClicker(win) {
+              // 1. Okamžitě vypneme stav hry
+              clickerActive = false;
 
-    const hole = randomHole(holes);
-    hole.classList.add('up');
+              // 2. Zastavíme časovač
+              if (clickerTimer) clearInterval(clickerTimer);
 
-    const time = Math.random() * (1000 - 400) + 400;
-    
-    setTimeout(() => {
-        hole.classList.remove('up');
-        if (whackActive) peep();
-    }, time);
-}
+              // 3. Zobrazíme tlačítko pro restart
+              document.getElementById("clicker-start-btn").style.display =
+                "inline-block";
 
-function bonk(e) {
-    if(!e.isTrusted || !whackActive) return; 
-    this.parentNode.classList.remove('up');
-    whackScore++;
-    document.getElementById('whack-score').innerText = whackScore;
-    if(whackScore >= whackScoreNeeded) {
-        endWhackAMole(true);
-    }
-}
+              const statusEl = document.getElementById("clicker-status");
+              if (statusEl) {
+                if (win) {
+                  statusEl.innerHTML =
+                    "Jsi úžasná! ❤️<br>Teď máš pusinky do zásoby. 🤭";
+                  statusEl.style.color = "#bc4749";
+                } else {
+                  statusEl.innerHTML = "Čas vypršel! 🫣<br>Zkus to znovu.";
+                  statusEl.style.color = "#bc4749";
+                }
+              }
+            }
 
-function endWhackAMole(win) {
-    whackActive = false;
-    if (whackTimer) clearInterval(whackTimer);
-    
-    document.getElementById('whack-start-btn').style.display = 'inline-block';
-    const holes = document.querySelectorAll('.whack-hole');
-    holes.forEach(hole => hole.classList.remove('up'));
+            // ================= WHACK-A-MOLE LOGIKA (OPTIMALIZOVANÁ) =================
+            let whackScore = 0;
+            const whackScoreNeeded = 10;
+            let whackTimeLeft = 15;
+            let whackTimer = null;
+            let moleTimer = null;
+            let whackActive = false;
+            let lastHole;
 
-    const resultEl = document.getElementById('whack-result');
-    if (win) {
-        resultEl.innerHTML = 'Paráda! 🏆<br>Všechny dostaly BUP! 🤭';
-        resultEl.style.color = '#bc4749';
-    } else {
-        resultEl.innerHTML = 'Čas vypršel! 🫣<br>Zkus to znovu.';
-        resultEl.style.color = '#bc4749';
-    }
-}
+            // 1. Tuto funkci volá openDay HNED po otevření okna
+            function setupWhackBoard() {
+              const board = document.getElementById("whack-board");
+              board.innerHTML = "";
+              // Vytvoření 9 děr okamžitě
+              for (let i = 0; i < 9; i++) {
+                const hole = document.createElement("div");
+                hole.classList.add("whack-hole");
+                const mole = document.createElement("div");
+                mole.classList.add("whack-mole");
+                mole.innerText = "😺";
+                mole.onclick = bonk; // Klikání funguje, ale bonk() zkontroluje whackActive
+                hole.appendChild(mole);
+                board.appendChild(hole);
+              }
+
+              // Reset textů pro hezký vzhled před startem
+              document.getElementById("whack-score").innerText = "0";
+              document.getElementById("whack-time").innerText = "15";
+              document.getElementById("whack-result").innerHTML =
+                '<span class="game-info">Připrav se...</span>';
+              document.getElementById("whack-start-btn").style.display =
+                "inline-block";
+            }
+
+            // 2. Tuto funkci volá až tlačítko START
+            function initWhackAMole() {
+              whackScore = 0;
+              whackTimeLeft = 15;
+              whackActive = true;
+
+              document.getElementById("whack-score").innerText = whackScore;
+              document.getElementById("whack-time").innerText = whackTimeLeft;
+              document.getElementById("whack-result").innerHTML =
+                '<span class="game-info">BUP!</span>';
+              document.getElementById("whack-start-btn").style.display = "none";
+
+              // Pojistka pro vyčištění starých intervalů
+              if (whackTimer) clearInterval(whackTimer);
+              if (moleTimer) clearInterval(moleTimer); // (i když moleTimer tu nepoužíváme přes interval, ale timeout, pro jistotu)
+
+              // Odpočet času
+              whackTimer = setInterval(() => {
+                if (!whackActive) {
+                  clearInterval(whackTimer);
+                  return;
+                }
+
+                whackTimeLeft--;
+                const timeEl = document.getElementById("whack-time");
+                if (timeEl) timeEl.innerText = whackTimeLeft;
+
+                if (whackTimeLeft <= 0) {
+                  endWhackAMole(false);
+                }
+              }, 1000);
+
+              // První krtek
+              peep();
+            }
+
+            function randomHole(holes) {
+              const idx = Math.floor(Math.random() * holes.length);
+              const hole = holes[idx];
+              if (hole === lastHole) return randomHole(holes);
+              lastHole = hole;
+              return hole;
+            }
+
+            function peep() {
+              if (!whackActive) return;
+
+              const holes = document.querySelectorAll(".whack-hole");
+              if (holes.length === 0) return;
+
+              const hole = randomHole(holes);
+              hole.classList.add("up");
+
+              const time = Math.random() * (1000 - 400) + 400;
+
+              setTimeout(() => {
+                hole.classList.remove("up");
+                if (whackActive) peep();
+              }, time);
+            }
+
+            function bonk(e) {
+              if (!e.isTrusted || !whackActive) return;
+              this.parentNode.classList.remove("up");
+              whackScore++;
+              document.getElementById("whack-score").innerText = whackScore;
+              if (whackScore >= whackScoreNeeded) {
+                endWhackAMole(true);
+              }
+            }
+
+            function endWhackAMole(win) {
+              whackActive = false;
+              if (whackTimer) clearInterval(whackTimer);
+
+              document.getElementById("whack-start-btn").style.display =
+                "inline-block";
+              const holes = document.querySelectorAll(".whack-hole");
+              holes.forEach((hole) => hole.classList.remove("up"));
+
+              const resultEl = document.getElementById("whack-result");
+              if (win) {
+                resultEl.innerHTML = "Paráda! 🏆<br>Všechny dostaly BUP! 🤭";
+                resultEl.style.color = "#bc4749";
+              } else {
+                resultEl.innerHTML = "Čas vypršel! 🫣<br>Zkus to znovu.";
+                resultEl.style.color = "#bc4749";
+              }
+            }
     </script>
   </body>
 </html>
