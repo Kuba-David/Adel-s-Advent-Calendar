@@ -820,25 +820,22 @@
               gameActive = true;
             }
           }
-        }, thinkingTime); // Necháme ho "přemýšlet" 
+        }, thinkingTime); // Necháme ho "přemýšlet"
       }
 
       // --- NOVÁ FUNKCE: Mozek počítače ---
       function getSmartMove() {
-        // Všechny výherní kombinace
         const wins = [
           [0, 1, 2],
           [3, 4, 5],
-          [6, 7, 8], // Řádky
+          [6, 7, 8],
           [0, 3, 6],
           [1, 4, 7],
-          [2, 5, 8], // Sloupce
+          [2, 5, 8],
           [0, 4, 8],
-          [2, 4, 6], // Diagonály
+          [2, 4, 6],
         ];
 
-        // Pomocná funkce: Najdi políčko, které doplní řadu na 3
-        // Hledáme řadu, kde má 'player' 2 symboly a 1 je prázdný
         function findSpot(player) {
           for (let combo of wins) {
             const [a, b, c] = combo;
@@ -848,7 +845,6 @@
             const countEmpty = values.filter((v) => v === "").length;
 
             if (countPlayer === 2 && countEmpty === 1) {
-              // Vrátíme index toho prázdného políčka
               if (tttBoard[a] === "") return a;
               if (tttBoard[b] === "") return b;
               if (tttBoard[c] === "") return c;
@@ -857,27 +853,34 @@
           return null;
         }
 
-        // 1. PRIORITA: Můžu hned vyhrát? (Hledám 2 'O')
+        // 1. ÚTOK: Můžu hned vyhrát? (Toho si všimne vždycky, to je fér)
         let move = findSpot("O");
         if (move !== null) return move;
 
-        // 2. PRIORITA: Musím blokovat hráče? (Hledám 2 'X')
+        // 2. OBRANA: Musím blokovat hráče? (Tady přidáme šanci na chybu!)
         move = findSpot("X");
-        if (move !== null) return move;
 
-        // 3. PRIORITA: Je volný střed? (Nejlepší strategie)
-        if (tttBoard[4] === "") return 4;
+        // TADY JE ZMĚNA:
+        // Pokud najde hrozbu, hodí si kostkou.
+        // Math.random() > 0.25 znamená, že v 75 % případů zablokuje.
+        // Ve 25 % případů (když padne 0-0.25) se tváří, že to nevidí a jde dál.
+        if (move !== null && Math.random() > 0.25) {
+          return move;
+        }
 
-        // 4. PRIORITA: Zkusím roh (pokud je volný)
+        // 3. STRATEGIE: Střed (Taky to neudělá vždy, jen v 80 % případů)
+        if (tttBoard[4] === "" && Math.random() > 0.2) return 4;
+
+        // 4. STRATEGIE: Rohy
         const corners = [0, 2, 6, 8];
         const availableCorners = corners.filter((i) => tttBoard[i] === "");
-        if (availableCorners.length > 0) {
+        if (availableCorners.length > 0 && Math.random() > 0.3) {
           return availableCorners[
             Math.floor(Math.random() * availableCorners.length)
           ];
         }
 
-        // 5. ZBYTEK: Hraju náhodně kamkoliv jinam
+        // 5. NÁHODA: Když nic nevymyslí (nebo když udělá chybu v bodě 2), hraje náhodně
         let emptyIndices = tttBoard
           .map((e, i) => (e === "" ? i : null))
           .filter((e) => e !== null);
