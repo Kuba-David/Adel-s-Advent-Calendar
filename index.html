@@ -634,7 +634,7 @@
         day: 20,
         type: "image",
         src: "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3cWc1aGJ6aXJqOTIzZWsxbHp4bHBxeXVubTh3MWNmZGVsMWMydmVsdyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/KSRj3CHz0OWcEdZ9oN/giphy.gif",
-        text: "Dneska bude pohoda. ❤️ Odpoledne za kamarádama ze severu a večer zaděláme na vánočku, co říkáš? 🥰 Hlavně dneska v3echno v klidu 🫶 Miluju tě!",
+        text: "Dneska bude pohoda. ❤️ Odpoledne za kamarádama ze severu a večer zaděláme na vánočku, co říkáš? 🥰 Hlavně dneska všechno v klidu 🫶 Miluju tě!",
       },
       {
         day: 21,
@@ -644,8 +644,9 @@
       },
       {
         day: 22,
-        type: "text",
-        text: "Pondělí. Už jen dva dny! Vánoční nálada level 1000.",
+        type: "image",
+        src: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZ3I3OGtta3IwbTR3MXFkYTIyN3gxODR2cHphdmF1Z3RmYzl4cDgyMCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/ERy32lxHhXfpu/giphy.gif",
+        text: "<strong>Pondělí.</strong> 📅<br><brZatímco já budu bušit do klávesnice a posouvat pixely, ty máš jediný úkol: <strong>Nenechat se ničím rozhodit. 🫶👀👃</strong><br><br>Vánoce se načítají... 🎄<br>Dej si nohy nahoru a užívej si ten madeirskej klid za nás oba. Zasloužíš si to! 💕"
       },
       {
         day: 23,
@@ -1299,7 +1300,7 @@
 
     // --- GENERÁTOR AKTIVIT ---
     function generateActivity() {
-    const activities = [
+      const activities = [
         "Vem si notýsek a zkus navrhnout nějaký zajímavý tvar nového hrnku 🏺",
         "Najdi nějakou místní čičinku a dej jí jméno (a pohlazení) 🐈",
         "Udělej si 'Pinterest hodinku' a hledej inspiraci na další projekt ze dřeva 🪑",
@@ -1312,28 +1313,28 @@
         "Pusť si hudbu a zatancuj si, jako by se nikdo nedíval (protože já počítačuju, takže se nedívám 🥲) 💃",
         "Napiš si seznam 3 věcí ze včerejška, za které jsi vděčná 🙏",
       ];
-    const box = document.getElementById('activity-result');
-    const btn = document.querySelector('button[onclick="generateActivity()"]');
-    
-    // Efekt losování
-    let counter = 0;
-    btn.disabled = true; // Aby neklikala zběsile
-    box.classList.remove('highlight');
-    
-    const shuffle = setInterval(() => {
+      const box = document.getElementById('activity-result');
+      const btn = document.querySelector('button[onclick="generateActivity()"]');
+
+      // Efekt losování
+      let counter = 0;
+      btn.disabled = true; // Aby neklikala zběsile
+      box.classList.remove('highlight');
+
+      const shuffle = setInterval(() => {
         box.innerText = activities[Math.floor(Math.random() * activities.length)];
         counter++;
         if (counter > 10) {
-            clearInterval(shuffle);
-            // Finální volba
-            const finalChoice = activities[Math.floor(Math.random() * activities.length)];
-            box.innerText = finalChoice;
-            box.classList.add('highlight');
-            btn.disabled = false;
-            btn.innerText = "Chci zkusit losovat znovu 🔄";
+          clearInterval(shuffle);
+          // Finální volba
+          const finalChoice = activities[Math.floor(Math.random() * activities.length)];
+          box.innerText = finalChoice;
+          box.classList.add('highlight');
+          btn.disabled = false;
+          btn.innerText = "Chci zkusit losovat znovu 🔄";
         }
-    }, 100);
-}
+      }, 100);
+    }
   </script>
 </body>
 
