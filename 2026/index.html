@@ -53,7 +53,7 @@
     /* --- vývěsní štít --- */
     .sign {
       position: relative;
-      margin: 26px 8px 22px;
+      margin: 8px 8px 22px;
       padding: 14px 16px 12px;
       text-align: center;
       background:
@@ -63,11 +63,6 @@
       border: 3px solid #2a1a0e;
       box-shadow: inset 0 0 0 2px rgba(255,255,255,.12), 0 8px 18px rgba(0,0,0,.45);
     }
-    .sign::before, .sign::after { /* řetízky */
-      content: ""; position: absolute; top: -26px; width: 4px; height: 26px;
-      background: repeating-linear-gradient(180deg, #b9a27a 0 5px, #6d5a3e 5px 7px);
-    }
-    .sign::before { left: 22%; } .sign::after { right: 22%; }
     .sign h1 {
       margin: 0;
       font-family: "Uncial Antiqua", "Alegreya SC", serif;
@@ -111,14 +106,15 @@
       color: #f8dcc8; font-family: "Alegreya SC", serif; font-weight: 800; line-height: 1;
       box-shadow: 0 2px 0 rgba(0,0,0,.25), inset 0 0 0 4px rgba(0,0,0,.12), inset 0 0 0 6px rgba(255,255,255,.08);
       transform: rotate(-8deg);
+      padding-bottom: 4px;
     }
-    .seal b { font-size: 24px; } .seal small { font-size: 9px; letter-spacing: .02em; margin-top: 1px; }
+    .seal b { font-size: 30px; line-height: .82; font-variant-numeric: lining-nums; margin-top: 0; } .seal small { font-size: 9.5px; letter-spacing: .04em; margin-top: -1px; }
     .seal.ms { background: radial-gradient(circle at 35% 30%, #e7c065, var(--gold) 45%, #8d6a22); color: #3a2a1a; }
 
     .kicker { font-family: "Alegreya SC", serif; font-weight: 700; color: var(--ink-soft); font-size: 14px; letter-spacing: .08em; margin: 0 70px 4px 0; }
     .sheet h2 { font-family: "Alegreya SC", serif; font-weight: 800; font-size: 27px; line-height: 1.1; margin: 0 70px 14px 0; }
     .task { font-size: 19px; margin: 0 0 16px; }
-    .task::first-letter { font-family: "Alegreya SC", serif; font-weight: 800; font-size: 2.4em; float: left; line-height: .85; margin: 4px 6px 0 0; color: var(--seal); }
+    .task::first-letter { font-family: "Alegreya SC", serif; font-weight: 800; font-size: 3.3em; float: left; line-height: .74; margin: 6px 2px 0 -1px; color: var(--seal); }
     .rule { border: 0; height: 10px; margin: 18px 0 14px; background: radial-gradient(circle, var(--parchment-edge) 2px, transparent 2.5px) center/14px 10px repeat-x; opacity: .9; }
     .muted { color: var(--ink-soft); font-style: italic; }
 
