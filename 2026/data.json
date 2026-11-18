@@ -1,0 +1,224 @@
+{
+  "rok": 2026,
+  "uvod": "Vítej, poutnice! Každý den tě na vývěsce čeká nový svitek s úkolem. Až ho splníš, vyslov před strážcem heslo a on ti prozradí, kde leží dnešní dílek cesty do Vánočního města.",
+
+  "dny": [
+    {
+      "den": 1,
+      "nazev": "Pátrání po Sofi",
+      "ukol": "Vyrazit na obchůzku kolem domu, najít sousedovic Sofi a dopřát jí pořádné podrbání za uchem.",
+      "alternativa": {
+        "nazev": "Kávová degustace",
+        "ukol": "Ráno u čerstvého šálku kávy se zavřenýma očima tipnout, jestli v chuti dominuje spíš čokoláda, oříšky, nebo ovoce."
+      },
+      "heslo": "drbani",
+      "skrys": "DOPLNIT – kde je schovaná kartička"
+    },
+    {
+      "den": 2,
+      "nazev": "Portugalská pětiminutovka",
+      "ukol": "Použít během dne v běžné domácí konverzaci pět portugalských slov nebo celých vět místo češtiny.",
+      "heslo": "obrigada",
+      "skrys": "DOPLNIT – kde je schovaná kartička"
+    },
+    {
+      "den": 3,
+      "nazev": "Slepý test v kuchyni",
+      "ukol": "Se zavřenýma očima ochutnat tři vybrané suroviny ze spíže nebo lednice a všechny tři neomylně poznat.",
+      "heslo": "jazyk",
+      "skrys": "DOPLNIT – kde je schovaná kartička"
+    },
+    {
+      "den": 4,
+      "nazev": "Karetní duel",
+      "ukol": "Dát si večerní odvetu v Žolících nebo Kanastě jeden na jednoho. Vítěz vybírá film na další večer.",
+      "heslo": "zolik",
+      "skrys": "DOPLNIT – kde je schovaná kartička"
+    },
+    {
+      "den": 5,
+      "milnik": true,
+      "nazev": "Kořist z levády",
+      "ukol": "Projít se podél levády a přinést domů čerstvé bobkové listy do kuchyně, nebo aspoň fotku z vavřínového lesa.",
+      "alternativa": {
+        "nazev": "Offline hodinka",
+        "ukol": "Odložit na dvě hodiny večer telefony vedle do pokoje, pustit hudbu a jen tak relaxovat."
+      },
+      "heslo": "vavrin",
+      "skrys": "DOPLNIT – kde je schovaná kartička"
+    },
+    {
+      "den": 6,
+      "nazev": "Botanický úlovek",
+      "ukol": "Najít během procházky tři různé kvetoucí rostliny, které by v prosinci ve střední Evropě neměly šanci.",
+      "alternativa": {
+        "nazev": "Masážní směna",
+        "ukol": "Dopřát si navzájem patnáctiminutovou masáž zad a krku po celém dni u háčkování a obrazovek."
+      },
+      "heslo": "strelicie",
+      "skrys": "DOPLNIT – kde je schovaná kartička"
+    },
+    {
+      "den": 7,
+      "nazev": "Kávová degustace",
+      "ukol": "Ráno u čerstvého šálku kávy se zavřenýma očima tipnout, jestli v chuti dominuje spíš čokoláda, oříšky, nebo ovoce.",
+      "heslo": "espresso",
+      "skrys": "DOPLNIT – kde je schovaná kartička"
+    },
+    {
+      "den": 8,
+      "nazev": "Masážní směna",
+      "ukol": "Dopřát si navzájem patnáctiminutovou masáž zad a krku po celém dni u háčkování a obrazovek.",
+      "heslo": "uleva",
+      "skrys": "DOPLNIT – kde je schovaná kartička"
+    },
+    {
+      "den": 9,
+      "nazev": "Portugalský tahák",
+      "ukol": "Natrénovat nahlas tři prodejní fráze v portugalštině: kolik co stojí, že je to ruční práce, a přání hezkého dne.",
+      "heslo": "feito a mao",
+      "skrys": "DOPLNIT – kde je schovaná kartička"
+    },
+    {
+      "den": 10,
+      "milnik": true,
+      "nazev": "Cenovky bez podceňování",
+      "ukol": "Ocenit všechny výrobky tak, aby to dávalo smysl za odvedenou práci, a připravit k nim úhledné cedulky.",
+      "heslo": "euro",
+      "skrys": "DOPLNIT – kde je schovaná kartička"
+    },
+    {
+      "den": 11,
+      "milnik": true,
+      "nazev": "Generálka stánku",
+      "ukol": "Rozložit doma na stůl háčkované tašky, hrníčky a plata na vajíčka a nanečisto naaranžovat nejhezčí kompozici pro trh.",
+      "heslo": "stanek",
+      "skrys": "DOPLNIT – kde je schovaná kartička"
+    },
+    {
+      "den": 12,
+      "milnik": true,
+      "nazev": "Křest ohněm",
+      "ukol": "Užít si svůj první trh v Jardim do Mar, dát se do řeči aspoň s jedním místním nebo turistou a večer to oslavit.",
+      "heslo": "jardim",
+      "skrys": "DOPLNIT – kde je schovaná kartička"
+    },
+    {
+      "den": 13,
+      "nazev": "Prosincové otužování",
+      "ukol": "Smočit v Calhetě nohy v oceánu aspoň po kotníky a vydržet ve vodě rovných deset vteřin.",
+      "alternativa": {
+        "nazev": "Offline hodinka",
+        "ukol": "Odložit na dvě hodiny večer telefony vedle do pokoje, pustit hudbu a jen tak relaxovat."
+      },
+      "heslo": "brrr",
+      "skrys": "DOPLNIT – kde je schovaná kartička"
+    },
+    {
+      "den": 14,
+      "nazev": "Offline hodinka",
+      "ukol": "Odložit na dvě hodiny večer telefony vedle do pokoje, pustit hudbu a jen tak relaxovat.",
+      "heslo": "ticho",
+      "skrys": "DOPLNIT – kde je schovaná kartička"
+    },
+    {
+      "den": 15,
+      "nazev": "Návrh na leden",
+      "ukol": "Načrtnout tvar nebo glazuru jednoho nového keramického kousku, nebo barevnou kombinaci další tašky na nový rok.",
+      "heslo": "glazura",
+      "skrys": "DOPLNIT – kde je schovaná kartička"
+    },
+    {
+      "den": 16,
+      "nazev": "Terénní skica",
+      "ukol": "Sednout si na deset minut s papírem a tužkou na vyhlídku a rychle načrtnout obrys útesů nebo vln.",
+      "alternativa": {
+        "nazev": "Karetní duel – odveta",
+        "ukol": "Večerní odveta v Žolících nebo Kanastě jeden na jednoho. Vítěz vybírá film na další večer."
+      },
+      "heslo": "utes",
+      "skrys": "DOPLNIT – kde je schovaná kartička"
+    },
+    {
+      "den": 17,
+      "nazev": "Kurátorka vzpomínek",
+      "ukol": "Projít společně fotky v telefonu za poslední měsíce na ostrově a vybrat pět nejlepších momentek k vytištění.",
+      "heslo": "momentka",
+      "skrys": "DOPLNIT – kde je schovaná kartička"
+    },
+    {
+      "den": 18,
+      "nazev": "Sváteční playlist",
+      "ukol": "Dát dohromady společný hudební seznam na Štědrý večer bez ohraných reklamních odrhovaček.",
+      "heslo": "koleda",
+      "skrys": "DOPLNIT – kde je schovaná kartička"
+    },
+    {
+      "den": 19,
+      "nazev": "Funchalská světýlka",
+      "ukol": "Vyrazit po setmění do uliček Funchalu, projít si vánoční výzdobu a nasát ostrovní sváteční atmosféru.",
+      "heslo": "luzes",
+      "skrys": "DOPLNIT – kde je schovaná kartička"
+    },
+    {
+      "den": 20,
+      "nazev": "Západ slunce nad oceánem",
+      "ukol": "Sbalit mikiny nebo deku a vyrazit na podvečerní vyhlídku nad oceánem. Zůstat, dokud slunce nezapadne.",
+      "alternativa": {
+        "nazev": "Masážní směna",
+        "ukol": "Dopřát si navzájem patnáctiminutovou masáž zad a krku po celém dni u háčkování a obrazovek."
+      },
+      "heslo": "por do sol",
+      "skrys": "DOPLNIT – kde je schovaná kartička"
+    },
+    {
+      "den": 21,
+      "nazev": "Ostrovní přípitek",
+      "ukol": "Namíchat doma nový sváteční drink z lokálních surovin a vymyslet mu vlastní název.",
+      "heslo": "saude",
+      "skrys": "DOPLNIT – kde je schovaná kartička"
+    },
+    {
+      "den": 22,
+      "milnik": true,
+      "nazev": "Vzkaz do příštího roku",
+      "ukol": "Napsat na malý papírek jednu věc, kterou se chce v novém roce naučit nebo vyrobit, a schovat ho do krabice od Carcassonne.",
+      "heslo": "krabice",
+      "skrys": "DOPLNIT – kde je schovaná kartička"
+    },
+    {
+      "den": 23,
+      "nazev": "Pletařská dílna",
+      "ukol": "Spojit síly v kuchyni a společně uplést vánočku tak, aby v troubě držela tvar jako z učebnice.",
+      "heslo": "vanocka",
+      "skrys": "DOPLNIT – kde je schovaná kartička"
+    },
+    {
+      "den": 24,
+      "milnik": true,
+      "nazev": "Poslední brána",
+      "ukol": "Rozluštit krátkou šifru schovanou u snídaně, získat finální dílek města a slavnostně uzavřít hradby.",
+      "heslo": "DOPLNIT – rozluštění šifry",
+      "skrys": "DOPLNIT – kde je schovaná brána"
+    }
+  ],
+
+  "zasobnik": [
+    {
+      "nazev": "Ostrovní průvodkyně",
+      "ukol": "Vybrat trasu společného výletu a ukázat přátelům místo, které je na Madeiře zaručeně dostane."
+    },
+    {
+      "nazev": "Karetní čtyřhra",
+      "ukol": "Vyzvat celou partu na večerní turnaj v Kanastě nebo Žolících a urvat aspoň jedno vítězství."
+    },
+    {
+      "nazev": "Inspekce ponchy",
+      "ukol": "Vzít výpravu do lokálního podniku na ponchu nebo bolo do caco a odborně zhodnotit místní recepturu."
+    },
+    {
+      "nazev": "Západ slunce v partě",
+      "ukol": "Sbalit mikiny nebo deku a vytáhnout všechny na podvečerní vyhlídku nad oceánem."
+    }
+  ]
+}
