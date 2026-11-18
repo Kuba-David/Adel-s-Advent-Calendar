@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Kniha výprav</title>
+  <meta name="theme-color" content="#3b2616" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" type="image/svg+xml" href="icons/meeple.svg" />
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Výprava" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,500;0,700;1,500&family=Alegreya+SC:wght@700;800&family=Uncial+Antiqua&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --wood-1: #5a3a22;
+      --wood-2: #4a2f1b;
+      --wood-3: #3b2616;
+      --wood-light: #8a5e38;
+      --parchment: #f3e4c4;
+      --parchment-2: #e8d3a6;
+      --parchment-edge: #c9a96e;
+      --ink: #3a2a1a;
+      --ink-soft: #6b543a;
+      --seal: #a3271f;
+      --seal-dark: #6e1712;
+      --field: #8fb26a;
+      --field-dark: #5f8240;
+      --gold: #d2a54a;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    html, body { margin: 0; }
+    body {
+      min-height: 100dvh;
+      font-family: "Alegreya", Georgia, serif;
+      color: var(--ink);
+      font-size: 18px;
+      line-height: 1.45;
+      /* dřevěná deska z prken */
+      background-color: var(--wood-2);
+      background-image:
+        repeating-linear-gradient(90deg, rgba(0,0,0,.0) 0 118px, rgba(0,0,0,.35) 118px 121px, rgba(255,255,255,.04) 121px 123px),
+        repeating-linear-gradient(90deg, rgba(255,255,255,.025) 0 3px, rgba(0,0,0,.03) 3px 9px, rgba(255,255,255,.02) 9px 17px),
+        linear-gradient(180deg, var(--wood-1), var(--wood-3));
+      padding: env(safe-area-inset-top) 0 env(safe-area-inset-bottom);
+    }
+    .wrap { max-width: 480px; margin: 0 auto; padding: 18px 16px 40px; }
+
+    /* --- vývěsní štít --- */
+    .sign {
+      position: relative;
+      margin: 26px 8px 22px;
+      padding: 14px 16px 12px;
+      text-align: center;
+      background:
+        repeating-linear-gradient(0deg, rgba(0,0,0,.06) 0 2px, transparent 2px 7px),
+        linear-gradient(180deg, var(--wood-light), #6b4527);
+      border-radius: 10px;
+      border: 3px solid #2a1a0e;
+      box-shadow: inset 0 0 0 2px rgba(255,255,255,.12), 0 8px 18px rgba(0,0,0,.45);
+    }
+    .sign::before, .sign::after { /* řetízky */
+      content: ""; position: absolute; top: -26px; width: 4px; height: 26px;
+      background: repeating-linear-gradient(180deg, #b9a27a 0 5px, #6d5a3e 5px 7px);
+    }
+    .sign::before { left: 22%; } .sign::after { right: 22%; }
+    .sign h1 {
+      margin: 0;
+      font-family: "Uncial Antiqua", "Alegreya SC", serif;
+      font-weight: 400;
+      font-size: 32px;
+      color: #f7e7c0;
+      text-shadow: 0 2px 0 #2a1a0e, 0 0 12px rgba(0,0,0,.4);
+      letter-spacing: .02em;
+    }
+    .sign p { margin: 2px 0 0; color: #ecd6a8; font-style: italic; font-size: 15px; }
+    .nail { position: absolute; top: 8px; width: 8px; height: 8px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #e6d6b0, #6d5a3e 60%, #2a1a0e); }
+    .nail.l { left: 8px; } .nail.r { right: 8px; }
+
+    /* --- svitek --- */
+    .scroll { position: relative; margin: 8px 0 26px; filter: drop-shadow(0 10px 14px rgba(0,0,0,.5)); }
+    .scroll .roll {
+      height: 22px; margin: 0 -6px; border-radius: 11px;
+      background: linear-gradient(180deg, #d9bf8a, #f5e7c8 40%, #b89559 100%);
+      border: 1px solid #8b6b3a;
+      position: relative; z-index: 2;
+    }
+    .scroll .sheet {
+      position: relative; z-index: 1;
+      margin: -6px 0;
+      padding: 26px 22px 24px;
+      background:
+        radial-gradient(ellipse at 20% 10%, rgba(255,255,255,.35), transparent 50%),
+        radial-gradient(ellipse at 80% 90%, rgba(150,100,40,.18), transparent 55%),
+        linear-gradient(180deg, var(--parchment), var(--parchment-2));
+      box-shadow: inset 0 0 40px rgba(140,95,40,.25);
+      min-height: 200px;
+    }
+    .sheet.open-anim { animation: unroll .55s ease-out; transform-origin: top; }
+    @keyframes unroll { from { clip-path: inset(0 0 100% 0); } to { clip-path: inset(0 0 0 0); } }
+
+    .seal {
+      position: absolute; top: 14px; right: 16px;
+      width: 58px; height: 58px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; flex-direction: column;
+      background: radial-gradient(circle at 35% 30%, #d0463b, var(--seal) 45%, var(--seal-dark));
+      color: #f8dcc8; font-family: "Alegreya SC", serif; font-weight: 800; line-height: 1;
+      box-shadow: 0 2px 0 rgba(0,0,0,.25), inset 0 0 0 4px rgba(0,0,0,.12), inset 0 0 0 6px rgba(255,255,255,.08);
+      transform: rotate(-8deg);
+    }
+    .seal b { font-size: 24px; } .seal small { font-size: 9px; letter-spacing: .02em; margin-top: 1px; }
+    .seal.ms { background: radial-gradient(circle at 35% 30%, #e7c065, var(--gold) 45%, #8d6a22); color: #3a2a1a; }
+
+    .kicker { font-family: "Alegreya SC", serif; font-weight: 700; color: var(--ink-soft); font-size: 14px; letter-spacing: .08em; margin: 0 70px 4px 0; }
+    .sheet h2 { font-family: "Alegreya SC", serif; font-weight: 800; font-size: 27px; line-height: 1.1; margin: 0 70px 14px 0; }
+    .task { font-size: 19px; margin: 0 0 16px; }
+    .task::first-letter { font-family: "Alegreya SC", serif; font-weight: 800; font-size: 2.4em; float: left; line-height: .85; margin: 4px 6px 0 0; color: var(--seal); }
+    .rule { border: 0; height: 10px; margin: 18px 0 14px; background: radial-gradient(circle, var(--parchment-edge) 2px, transparent 2.5px) center/14px 10px repeat-x; opacity: .9; }
+    .muted { color: var(--ink-soft); font-style: italic; }
+
+    .planb { display: inline-flex; align-items: center; gap: 6px; margin: -4px 0 6px; padding: 6px 12px; border-radius: 999px; border: 1.5px dashed var(--ink-soft); background: rgba(255,255,255,.25); color: var(--ink); font: 600 15px "Alegreya", serif; cursor: pointer; }
+    .planb[aria-pressed="true"] { background: #cfe0f0; border-style: solid; border-color: #4f7aa3; }
+
+    /* --- heslo --- */
+    form.pass { display: flex; flex-direction: column; gap: 10px; }
+    form.pass label { font-family: "Alegreya SC", serif; font-weight: 700; font-size: 15px; color: var(--ink-soft); letter-spacing: .05em; }
+    .row { display: flex; gap: 8px; }
+    .pass input {
+      flex: 1; min-width: 0;
+      font: 500 20px "Alegreya", serif; color: var(--ink);
+      background: rgba(255,255,255,.35);
+      border: 0; border-bottom: 2px solid var(--ink); border-radius: 6px 6px 0 0;
+      padding: 10px 10px 8px; outline: none;
+    }
+    .pass input:focus { background: rgba(255,255,255,.6); }
+    .btn {
+      font: 700 17px "Alegreya SC", serif; letter-spacing: .03em; color: #f7e7c0;
+      padding: 10px 16px; border-radius: 8px; border: 2px solid #2a1a0e; cursor: pointer;
+      background: repeating-linear-gradient(0deg, rgba(0,0,0,.07) 0 2px, transparent 2px 6px), linear-gradient(180deg, #8a5e38, #5a3a22);
+      box-shadow: 0 3px 0 #2a1a0e;
+    }
+    .btn:active { transform: translateY(2px); box-shadow: 0 1px 0 #2a1a0e; }
+    .msg { min-height: 1.4em; font-style: italic; color: var(--seal); margin: 0; font-size: 16px; }
+    .shake { animation: shake .4s; }
+    @keyframes shake { 20%,60% { transform: translateX(-7px); } 40%,80% { transform: translateX(7px); } }
+
+    /* --- odhalená skrýš --- */
+    .reveal {
+      margin-top: 4px; padding: 16px 16px 14px; border-radius: 8px;
+      background: rgba(255,255,255,.4); border: 2px dashed var(--seal);
+      animation: glow 1.2s ease-out;
+    }
+    .reveal .lbl { font-family: "Alegreya SC", serif; font-weight: 800; color: var(--seal); font-size: 15px; letter-spacing: .06em; }
+    .reveal .where { font-size: 21px; font-weight: 700; margin: 4px 0 0; }
+    @keyframes glow { from { box-shadow: 0 0 0 0 rgba(210,165,74,.9); } to { box-shadow: 0 0 0 22px rgba(210,165,74,0); } }
+
+    /* --- kronika (mřížka dnů) --- */
+    .chron-h { display: flex; justify-content: space-between; align-items: baseline; color: #f0dcb0; margin: 0 4px 10px; }
+    .chron-h h3 { margin: 0; font-family: "Alegreya SC", serif; font-weight: 800; font-size: 21px; text-shadow: 0 2px 0 rgba(0,0,0,.5); }
+    .chron-h span { font-size: 15px; font-style: italic; }
+    .progress { height: 8px; margin: 0 4px 14px; border-radius: 4px; background: rgba(0,0,0,.35); overflow: hidden; }
+    .progress i { display: block; height: 100%; background: linear-gradient(90deg, var(--field-dark), var(--field)); transition: width .6s; }
+    .grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 7px; }
+    .tile {
+      aspect-ratio: 1; border-radius: 5px; border: 0; padding: 0; cursor: pointer; position: relative;
+      font: 800 18px "Alegreya SC", serif; color: var(--ink);
+      background: linear-gradient(160deg, var(--parchment), var(--parchment-2));
+      box-shadow: 0 3px 0 rgba(0,0,0,.45), inset 0 0 0 2px rgba(0,0,0,.08);
+    }
+    .tile.locked { background: linear-gradient(160deg, #4b301c, #3a2414); color: rgba(240,220,176,.35); cursor: default; box-shadow: inset 0 2px 4px rgba(0,0,0,.5); }
+    .tile.done {
+      color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,.5);
+      background:
+        linear-gradient(180deg, transparent 74%, #6d5a3e 74% 76%, #f5ecd6 76% 86%, #6d5a3e 86% 88%, transparent 88%),
+        linear-gradient(160deg, var(--field), var(--field-dark));
+    }
+    .tile.ms:not(.locked)::after { content: ""; position: absolute; top: 3px; right: 3px; width: 8px; height: 8px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 0 1.5px rgba(0,0,0,.3); }
+    .tile.today:not(.done) { outline: 3px solid var(--gold); outline-offset: 1px; animation: pulse 1.8s infinite; }
+    .tile.sel { transform: translateY(-3px); box-shadow: 0 6px 0 rgba(0,0,0,.45), inset 0 0 0 2px rgba(0,0,0,.15); }
+    @keyframes pulse { 50% { outline-color: rgba(210,165,74,.25); } }
+
+    .foot { margin-top: 26px; text-align: center; color: rgba(240,220,176,.6); font-size: 13px; font-style: italic; }
+    .foot svg { width: 22px; height: 22px; vertical-align: -5px; fill: var(--seal); opacity: .9; }
+    .test { position: fixed; left: 8px; bottom: calc(8px + env(safe-area-inset-bottom)); background: #b8322a; color: #fff; font: 700 12px system-ui; padding: 4px 8px; border-radius: 4px; z-index: 9; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="sign">
+      <span class="nail l"></span><span class="nail r"></span>
+      <h1>Kniha výprav</h1>
+      <p>Adélčina cesta do Vánočního města</p>
+    </header>
+
+    <section class="scroll" aria-live="polite">
+      <div class="roll"></div>
+      <div class="sheet" id="sheet"><p class="muted">Rozvinuji svitek…</p></div>
+      <div class="roll"></div>
+    </section>
+
+    <section>
+      <div class="chron-h"><h3>Kronika výpravy</h3><span id="count"></span></div>
+      <div class="progress"><i id="bar" style="width:0"></i></div>
+      <div class="grid" id="grid"></div>
+    </section>
+
+    <p class="foot">
+      <svg viewBox="0 0 100 100" aria-hidden="true"><path d="M50 8c9 0 16 7 16 16 0 5-2 9-5 12l24 9c6 2 7 9 2 12l-16 9 13 25c2 4-1 9-5 9H62L50 81 38 100H22c-4 0-7-5-5-9l13-25-16-9c-5-3-4-10 2-12l24-9c-3-3-5-7-5-12 0-9 7-16 16-16z"/></svg>
+      Každý splněný úkol = jeden dílek cesty.
+    </p>
+  </div>
+
+  <script>
+  (() => {
+    const TZ = "Atlantic/Madeira";
+    const params = new URLSearchParams(location.search);
+    const testDay = params.has("den") ? parseInt(params.get("den"), 10) : null;
+    const STORE = testDay !== null ? "vyprava-test" : "vyprava";
+    const DATA_CACHE = "vyprava-data";
+
+    // ---------- bezpečné úložiště ----------
+    const store = {
+      get(k, d) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch { return d; } },
+      set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} },
+    };
+
+    // ---------- pomocné ----------
+    const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c])).replace(/\n/g, "<br>");
+    const norm = (s) => String(s ?? "").normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+    const $ = (id) => document.getElementById(id);
+
+    function madeiraToday() {
+      const s = new Intl.DateTimeFormat("en-CA", { timeZone: TZ, year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date());
+      const [y, m, d] = s.split("-").map(Number);
+      return { y, m, d };
+    }
+    // Vrací číslo dne, který je dnes otevřený: 0 = ještě nezačalo, 25 = po Štědrém dni (vše otevřené)
+    function currentDay(rok) {
+      if (testDay !== null && !isNaN(testDay)) return Math.max(0, Math.min(25, testDay));
+      const { y, m, d } = madeiraToday();
+      if (y > rok) return 25;
+      if (y < rok || m < 12) return 0;
+      return Math.min(d, 25);
+    }
+
+    // ---------- načtení dat ----------
+    async function loadData() {
+      try {
+        const res = await fetch("data.json?t=" + Date.now(), { cache: "no-store" });
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        const data = JSON.parse(await res.text());
+        if (!Array.isArray(data.dny)) throw new Error("chybí pole dny");
+        store.set(DATA_CACHE, data);
+        return data;
+      } catch (e) {
+        console.warn("Nepodařilo se načíst data.json:", e);
+        const cached = store.get(DATA_CACHE, null);
+        if (cached) return cached;
+        throw e;
+      }
+    }
+
+    // ---------- stav ----------
+    let data, today, selected, planB = {};
+    let done = store.get(STORE, {});     // { "5": { at: "...", skrys: "..." } }
+    const dayObj = (n) => data.dny.find((x) => Number(x.den) === n);
+
+    function render() {
+      renderSheet(selected);
+      renderGrid();
+    }
+
+    function renderSheet(n, animate) {
+      const sheet = $("sheet");
+      if (animate) { sheet.classList.remove("open-anim"); void sheet.offsetWidth; sheet.classList.add("open-anim"); }
+
+      if (!n) {
+        const { y, m, d } = madeiraToday();
+        const start = Date.UTC(data.rok, 11, 1), now = Date.UTC(y, m - 1, d);
+        const left = Math.max(1, Math.round((start - now) / 864e5));
+        sheet.innerHTML = `
+          <p class="kicker">Vývěska</p>
+          <h2>Výprava se chystá</h2>
+          <p class="task">${esc(data.uvod || "")}</p>
+          <hr class="rule">
+          <p class="muted">První svitek se objeví 1. prosince. ${left === 1 ? "Už zítra!" : `Zbývá ${left} ${left < 5 ? "dny" : "dní"}.`}</p>`;
+        return;
+      }
+
+      const day = dayObj(n);
+      if (!day) {
+        sheet.innerHTML = `<p class="kicker">${n}. prosince</p><h2>Svitek se ještě píše</h2><p class="muted">Pro tenhle den zatím nic nevisí. Zkus to později.</p>`;
+        return;
+      }
+
+      const ms = !!day.milnik;
+      const alt = day.alternativa && day.alternativa.ukol;
+      const useB = alt && planB[n];
+      const title = useB ? (day.alternativa.nazev || day.nazev) : day.nazev;
+      const task = useB ? day.alternativa.ukol : day.ukol;
+      const isDone = !!done[n];
+      const skrys = isDone ? (day.skrys || done[n].skrys) : null;
+
+      sheet.innerHTML = `
+        <div class="seal ${ms ? "ms" : ""}"><b>${n}</b><small>PROS.</small></div>
+        <p class="kicker">${n === today ? "Dnešní úkol" : "Úkol"}${ms ? " · milník" : ""}</p>
+        <h2>${esc(title)}</h2>
+        ${alt ? `<button class="planb" id="planb" aria-pressed="${useB ? "true" : "false"}">${useB ? "☀️ Zpět na původní úkol" : "🌧️ Nepřeje počasí? Plán B"}</button>` : ""}
+        <p class="task">${esc(task)}</p>
+        <hr class="rule">
+        ${isDone ? `
+          <div class="reveal">
+            <div class="lbl">Dílek čeká…</div>
+            <p class="where">${esc(skrys)}</p>
+          </div>` : `
+          <form class="pass" id="pass" autocomplete="off">
+            <label for="pw">Splněno? Vyslov heslo strážce</label>
+            <div class="row">
+              <input id="pw" type="text" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="go" placeholder="heslo…" />
+              <button class="btn" type="submit">Odemknout</button>
+            </div>
+            <p class="msg" id="msg"></p>
+          </form>`}`;
+
+      const pb = $("planb");
+      if (pb) pb.onclick = () => { planB[n] = !planB[n]; renderSheet(n, true); };
+      const form = $("pass");
+      if (form) form.onsubmit = (e) => { e.preventDefault(); tryUnlock(n); };
+    }
+
+    const NOPE = [
+      "Strážce brány vrtí hlavou.",
+      "Tohle heslo strážce nezná.",
+      "Ani omylem. Zkus to znovu.",
+      "Strážce se jen pobaveně usmívá.",
+    ];
+    function tryUnlock(n) {
+      const day = dayObj(n);
+      const input = $("pw");
+      const guess = norm(input.value);
+      if (!guess) return;
+      const ok = [].concat(day.heslo ?? []).map(norm).filter(Boolean);
+      if (ok.includes(guess)) {
+        done[n] = { at: new Date().toISOString(), skrys: day.skrys || "" };
+        store.set(STORE, done);
+        if (navigator.vibrate) try { navigator.vibrate([30, 40, 60]); } catch {}
+        render();
+      } else {
+        const form = $("pass");
+        form.classList.remove("shake"); void form.offsetWidth; form.classList.add("shake");
+        $("msg").textContent = NOPE[Math.floor(Math.random() * NOPE.length)];
+        input.select();
+      }
+    }
+
+    function renderGrid() {
+      const grid = $("grid");
+      grid.innerHTML = "";
+      let count = 0;
+      for (let n = 1; n <= 24; n++) {
+        const day = dayObj(n);
+        const open = n <= today;
+        const isDone = !!done[n];
+        if (isDone) count++;
+        const b = document.createElement("button");
+        b.className = "tile" + (open ? "" : " locked") + (isDone ? " done" : "") + (n === today ? " today" : "") + (day && day.milnik ? " ms" : "") + (n === selected ? " sel" : "");
+        b.textContent = n;
+        b.setAttribute("aria-label", `${n}. prosince${isDone ? ", splněno" : open ? "" : ", zamčeno"}`);
+        if (open) b.onclick = () => { selected = n; render(); renderSheet(n, true); window.scrollTo({ top: 0, behavior: "smooth" }); };
+        else b.disabled = true;
+        grid.appendChild(b);
+      }
+      $("count").textContent = `splněno ${count} z 24`;
+      $("bar").style.width = (count / 24 * 100) + "%";
+    }
+
+    // ---------- start ----------
+    (async () => {
+      if (testDay !== null) {
+        const t = document.createElement("div");
+        t.className = "test";
+        t.textContent = `TEST: den ${testDay} (paměť odděleně)`;
+        document.body.appendChild(t);
+      }
+      try {
+        data = await loadData();
+      } catch (e) {
+        $("sheet").innerHTML = `<h2>Svitek se roztrhl</h2><p class="muted">Nepodařilo se načíst data. Zkontroluj připojení, nebo jestli v souboru data.json nechybí čárka či uvozovka.</p>`;
+        return;
+      }
+      data.rok = Number(data.rok) || new Date().getFullYear();
+      today = currentDay(data.rok);
+      selected = today === 0 ? 0 : Math.min(today, 24);
+      // po Štědrém dni ukaž poslední nesplněný, jinak 24
+      if (today === 25) {
+        const firstOpen = Array.from({ length: 24 }, (_, i) => i + 1).find((n) => !done[n]);
+        selected = firstOpen || 24;
+      }
+      render();
+    })();
+
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));
+    }
+  })();
+  </script>
+</body>
+</html>
